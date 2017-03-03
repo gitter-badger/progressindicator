@@ -1,0 +1,331 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>progress_manager.extensions &#8212; progress_manager 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">progress_manager 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for progress_manager.extensions</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;This module contains the BaseExtensions for progress_manager.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">progress_manager.base</span> <span class="k">import</span> <span class="n">BaseExtension</span>
+
+<div class="viewcode-block" id="Bar"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.extensions.Bar">[docs]</a><span class="k">class</span> <span class="nc">Bar</span><span class="p">(</span><span class="n">BaseExtension</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Extension to display ProgressBar in console.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    length : int, optional</span>
+<span class="sd">        Number of entities in the Bar (Default 60)</span>
+
+<span class="sd">    begin_entity : str, optional</span>
+<span class="sd">        Symbol to indicate start of the Bar (Default &#39;[&#39;)</span>
+
+<span class="sd">    filler_entity : str, optional</span>
+<span class="sd">        Symbol which is used to show completed part of the Bar (Default &#39;#&#39;)</span>
+
+<span class="sd">    empty_entity : str, optional</span>
+<span class="sd">        Symbol which is used to show incomplete part of the Bar (Default &#39; &#39;)</span>
+
+<span class="sd">    end_entity : str, optional</span>
+<span class="sd">        Symbol to indicate end of the Bar (Default &#39;]&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">begin_entity</span><span class="o">=</span><span class="s1">&#39;[&#39;</span><span class="p">,</span> <span class="n">filler_entity</span><span class="o">=</span><span class="s1">&#39;#&#39;</span><span class="p">,</span>
+                 <span class="n">empty_entity</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">end_entity</span><span class="o">=</span><span class="s1">&#39;]&#39;</span><span class="p">):</span>
+        <span class="n">BaseExtension</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">requirements</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;percentage&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">length</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">begin_entity</span> <span class="o">=</span> <span class="n">begin_entity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filler_entity</span> <span class="o">=</span> <span class="n">filler_entity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">empty_entity</span> <span class="o">=</span> <span class="n">empty_entity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_entity</span> <span class="o">=</span> <span class="n">end_entity</span>
+
+    <span class="k">def</span> <span class="nf">_is_update_required</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prev_params</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">abs</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_entity_count</span><span class="p">(</span><span class="n">prev_params</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_entity_count</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span> <span class="o">&gt;=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">_get_entity_count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">percentage</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">percentage</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filler_count</span><span class="p">):</span>
+        <span class="n">bar</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">begin_entity</span>
+               <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filler_entity</span> <span class="o">*</span> <span class="n">filler_count</span><span class="p">)</span>
+               <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">empty_entity</span>
+                  <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">-</span> <span class="n">filler_count</span><span class="p">))</span>
+               <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_entity</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">bar</span>
+
+<div class="viewcode-block" id="Bar.on_validated"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.extensions.Bar.on_validated">[docs]</a>    <span class="k">def</span> <span class="nf">on_validated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="n">current_entity_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_entity_count</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">bar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_bar</span><span class="p">(</span><span class="n">current_entity_count</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">bar</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Bar.on_invalidated"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.extensions.Bar.on_invalidated">[docs]</a>    <span class="k">def</span> <span class="nf">on_invalidated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="k">pass</span></div></div>
+
+<div class="viewcode-block" id="BouncingBar"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.extensions.BouncingBar">[docs]</a><span class="k">class</span> <span class="nc">BouncingBar</span><span class="p">(</span><span class="n">BaseExtension</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This Extension displays a visual cue for a task with indeterminate</span>
+<span class="sd">    progress.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    length : int, optional</span>
+<span class="sd">        Number of entities in the Bar (Default 60)</span>
+
+<span class="sd">    begin_entity : str, optional</span>
+<span class="sd">        Symbol to indicate start of the Bar (Default &#39;[&#39;)</span>
+
+<span class="sd">    filler_entity : str, optional</span>
+<span class="sd">        Symbol which is used to show completed part of the Bar (Default &#39;*&#39;)</span>
+
+<span class="sd">    empty_entity : str, optional</span>
+<span class="sd">        Symbol which is used to show incomplete part of the Bar (Default &#39; &#39;)</span>
+
+<span class="sd">    end_entity : str, optional</span>
+<span class="sd">        Symbol to indicate end of the Bar (Default &#39;]&#39;)</span>
+
+<span class="sd">    velocity : int, optional</span>
+<span class="sd">        Speed of the filler (Default 200)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">begin_entity</span><span class="o">=</span><span class="s1">&#39;[&#39;</span><span class="p">,</span> <span class="n">filler_entity</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span>
+                 <span class="n">empty_entity</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">end_entity</span><span class="o">=</span><span class="s1">&#39;]&#39;</span><span class="p">,</span> <span class="n">velocity</span><span class="o">=</span><span class="mi">200</span><span class="p">):</span>
+        <span class="n">BaseExtension</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                               <span class="n">requirements</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;time_since_begin&#39;</span><span class="p">,</span>
+                                               <span class="s1">&#39;deltatime&#39;</span><span class="p">],</span>
+                               <span class="n">update_interval</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">length</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filler</span> <span class="o">=</span> <span class="n">filler_entity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">begin_entity</span> <span class="o">=</span> <span class="n">begin_entity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_entity</span> <span class="o">=</span> <span class="n">end_entity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">empty</span> <span class="o">=</span> <span class="n">empty_entity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">velocity</span> <span class="o">=</span> <span class="n">velocity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">_get_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="n">bar</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">begin_entity</span>
+               <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">empty</span> <span class="o">*</span> <span class="n">position</span><span class="p">)</span>
+               <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">filler</span>
+               <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">empty</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">-</span> <span class="n">position</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+               <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_entity</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">bar</span>
+
+    <span class="k">def</span> <span class="nf">_set_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+
+<div class="viewcode-block" id="BouncingBar.on_validated"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.extensions.BouncingBar.on_validated">[docs]</a>    <span class="k">def</span> <span class="nf">on_validated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">velocity</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_position</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">velocity</span> <span class="o">*</span> <span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_bar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="BouncingBar.on_invalidated"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.extensions.BouncingBar.on_invalidated">[docs]</a>    <span class="k">def</span> <span class="nf">on_invalidated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="n">_on_validated</span><span class="p">(</span><span class="n">params</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BouncingBar.on_end"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.extensions.BouncingBar.on_end">[docs]</a>    <span class="k">def</span> <span class="nf">on_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_bar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">))</span></div></div>
+
+<div class="viewcode-block" id="Ellipses"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.extensions.Ellipses">[docs]</a><span class="k">class</span> <span class="nc">Ellipses</span><span class="p">(</span><span class="n">BaseExtension</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This Extension displays a visual cue for a task with indeterminate</span>
+<span class="sd">    progress.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BaseExtension</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">requirements</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">update_interval</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_char</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_total_char_count</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_count</span> <span class="o">=</span> <span class="mi">0</span>
+
+<div class="viewcode-block" id="Ellipses.on_update"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.extensions.Ellipses.on_update">[docs]</a>    <span class="k">def</span> <span class="nf">on_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_count</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_total_char_count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_char</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_count</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Ellipses.on_end"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.extensions.Ellipses.on_end">[docs]</a>    <span class="k">def</span> <span class="nf">on_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_char</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_total_char_count</span> <span class="o">+</span> <span class="s1">&#39;Done&#39;</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="Alternator"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.extensions.Alternator">[docs]</a><span class="k">class</span> <span class="nc">Alternator</span><span class="p">(</span><span class="n">BaseExtension</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This Extension displays items from a List in a sequential order</span>
+<span class="sd">    in a loop after every a fixed time interval.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    char_iter : iterable of str</span>
+<span class="sd">        The set of string through which the extension should loop.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">char_iter</span><span class="p">):</span>
+        <span class="n">BaseExtension</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">requirements</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">update_interval</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_char_iter</span> <span class="o">=</span> <span class="n">char_iter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_pos</span> <span class="o">=</span> <span class="mi">0</span>
+
+<div class="viewcode-block" id="Alternator.on_update"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.extensions.Alternator.on_update">[docs]</a>    <span class="k">def</span> <span class="nf">on_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_char_iter</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_pos</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_pos</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_char_iter</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="Spinner"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.extensions.Spinner">[docs]</a><span class="k">class</span> <span class="nc">Spinner</span><span class="p">(</span><span class="n">Alternator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This Extension displays a visual cue for a task with indeterminate</span>
+<span class="sd">    progress. It displays a rotating marker to indicate progress of a task.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="o">.</span><span class="n">__init__</span><span class="p">([</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Loader"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.extensions.Loader">[docs]</a><span class="k">class</span> <span class="nc">Loader</span><span class="p">(</span><span class="n">Alternator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This Extension displays a visual cue for a task with indeterminate</span>
+<span class="sd">    progress.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    char : str</span>
+<span class="sd">        The character which is to be repeated.</span>
+
+<span class="sd">    n : int</span>
+<span class="sd">        The maximum number character which should be displayed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">char</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+        <span class="n">char_iter</span> <span class="o">=</span> <span class="p">[</span><span class="n">char</span><span class="o">*</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
+        <span class="nb">super</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">char_iter</span><span class="p">)</span></div>
+        
+
+<div class="viewcode-block" id="Timer"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.extensions.Timer">[docs]</a><span class="k">class</span> <span class="nc">Timer</span><span class="p">(</span><span class="n">BaseExtension</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This Extension provides total time since the task was started.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BaseExtension</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">requirements</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;time_since_begin&#39;</span><span class="p">])</span>
+
+<div class="viewcode-block" id="Timer.on_validated"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.extensions.Timer.on_validated">[docs]</a>    <span class="k">def</span> <span class="nf">on_validated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="n">time_</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_formatted_time</span><span class="p">(</span><span class="n">time_</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Timer.on_invalidated"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.extensions.Timer.on_invalidated">[docs]</a>    <span class="k">def</span> <span class="nf">on_invalidated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="s1">&#39;UNKNOWN&#39;</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_formatted_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">datetime</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="p">)</span> <span class="p">,</span> <span class="mi">0</span><span class="p">))</span></div>
+    
+
+<div class="viewcode-block" id="ETA"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.extensions.ETA">[docs]</a><span class="k">class</span> <span class="nc">ETA</span><span class="p">(</span><span class="n">Timer</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This Extension displays the expected time left for the task to be</span>
+<span class="sd">    completed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BaseExtension</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">requirements</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;eta&#39;</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="ETANew"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.extensions.ETANew">[docs]</a><span class="k">class</span> <span class="nc">ETANew</span><span class="p">(</span><span class="n">Timer</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This Extension displays an alternate expected time left for the task</span>
+<span class="sd">    to be completed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BaseExtension</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">requirements</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;eta_new&#39;</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="Rate"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.extensions.Rate">[docs]</a><span class="k">class</span> <span class="nc">Rate</span><span class="p">(</span><span class="n">BaseExtension</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This Extension displays the rate at which calls to `publish` are made.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BaseExtension</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">requirements</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;rate&#39;</span><span class="p">])</span>
+
+<div class="viewcode-block" id="Rate.on_validated"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.extensions.Rate.on_validated">[docs]</a>    <span class="k">def</span> <span class="nf">on_validated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="n">rate</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">rate</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; iters/s&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Rate.on_invalidated"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.extensions.Rate.on_invalidated">[docs]</a>    <span class="k">def</span> <span class="nf">on_invalidated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="s1">&#39;UNKNOWN&#39;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Percentage"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.extensions.Percentage">[docs]</a><span class="k">class</span> <span class="nc">Percentage</span><span class="p">(</span><span class="n">BaseExtension</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This Extension displays percentage of the task completed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BaseExtension</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">requirements</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;percentage&#39;</span><span class="p">])</span>
+
+<div class="viewcode-block" id="Percentage.on_validated"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.extensions.Percentage.on_validated">[docs]</a>    <span class="k">def</span> <span class="nf">on_validated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="n">percentage</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:0=2}</span><span class="s2">%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">percentage</span><span class="p">)))</span></div>
+
+<div class="viewcode-block" id="Percentage.on_invalidated"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.extensions.Percentage.on_invalidated">[docs]</a>    <span class="k">def</span> <span class="nf">on_invalidated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="s1">&#39;UNKNOWN&#39;</span><span class="p">)</span></div></div>
+
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">progress_manager 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Priyam Singh.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+    </div>
+  </body>
+</html>
