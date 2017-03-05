@@ -25,7 +25,8 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Installation" href="install.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -37,6 +38,9 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="install.html" title="Installation"
+             accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">progress_manager 0.1.0 documentation</a> &#187;</li> 
       </ul>
     </div>  
@@ -52,6 +56,43 @@
 <h2>Building the ProgressBar<a class="headerlink" href="#building-the-progressbar" title="Permalink to this headline">¶</a></h2>
 <p>Creating a ProgressBar is very easy. You can create it by using extensions.
 Let&#8217;s create our first ProgressBar.</p>
+<div class="section" id="in-a-loop">
+<h3>In a Loop<a class="headerlink" href="#in-a-loop" title="Permalink to this headline">¶</a></h3>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">progress_manager</span> <span class="k">import</span> <span class="n">AdvancedProgressBar</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bar</span> <span class="o">=</span> <span class="n">AdvancedProgressBar</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bar</span><span class="o">.</span><span class="n">begin</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">bar</span><span class="o">.</span><span class="n">publish</span><span class="p">((</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bar</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="wrapping-a-generator">
+<h3>Wrapping a Generator<a class="headerlink" href="#wrapping-a-generator" title="Permalink to this headline">¶</a></h3>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">generator</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="k">yield</span> <span class="n">x</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bar</span><span class="p">(</span><span class="n">generator</span><span class="p">(</span><span class="n">n</span><span class="p">)):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="wrapping-a-iterator">
+<h3>Wrapping a Iterator<a class="headerlink" href="#wrapping-a-iterator" title="Permalink to this headline">¶</a></h3>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-with-statement">
+<h3>Using with statement<a class="headerlink" href="#using-with-statement" title="Permalink to this headline">¶</a></h3>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">AdvancedProgressBar</span><span class="p">()</span> <span class="k">as</span> <span class="n">bar</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">bar</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">n</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
@@ -64,11 +105,20 @@ Let&#8217;s create our first ProgressBar.</p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Quickstart</a><ul>
-<li><a class="reference internal" href="#building-the-progressbar">Building the ProgressBar</a></li>
+<li><a class="reference internal" href="#building-the-progressbar">Building the ProgressBar</a><ul>
+<li><a class="reference internal" href="#in-a-loop">In a Loop</a></li>
+<li><a class="reference internal" href="#wrapping-a-generator">Wrapping a Generator</a></li>
+<li><a class="reference internal" href="#wrapping-a-iterator">Wrapping a Iterator</a></li>
+<li><a class="reference internal" href="#using-with-statement">Using with statement</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="install.html"
+                        title="previous chapter">Installation</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -99,6 +149,9 @@ Let&#8217;s create our first ProgressBar.</p>
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="install.html" title="Installation"
+             >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">progress_manager 0.1.0 documentation</a> &#187;</li> 
       </ul>
     </div>

@@ -9,6 +9,47 @@ Building the ProgressBar
 Creating a ProgressBar is very easy. You can create it by using extensions.
 Let's create our first ProgressBar.
 
+-------------------------------------------------------------------------
+In a Loop
+-------------------------------------------------------------------------
+
 .. code:: python
    
+   >>> from progress_manager import AdvancedProgressBar
+   >>> bar = AdvancedProgressBar()
+   >>> bar.begin()
+   >>> for i in range(1000):
+   >>>     bar.publish((i+1)/10)
+   >>> bar.end()
+
+-------------------------------------------------------------------------
+Wrapping a Generator
+-------------------------------------------------------------------------
+
+.. code:: python
+
+   >>> def generator(n):
+   >>>     for x in range(n):
+   >>>         yield x
+   >>> for i in bar(generator(n)):
+   >>>     time.sleep(0.01)
    
+-------------------------------------------------------------------------
+Wrapping a Iterator
+-------------------------------------------------------------------------
+
+.. code:: python
+
+   >>> for i in bar(range(n)):
+   >>>     time.sleep(0.01)
+   
+-------------------------------------------------------------------------
+Using with statement
+-------------------------------------------------------------------------
+
+.. code:: python
+
+   >>> with AdvancedProgressBar() as bar:
+   >>>     for i in range(n):
+   >>>         time.sleep(0.01)
+   >>>         bar.publish(100*(i+1)/n)
