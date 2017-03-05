@@ -405,11 +405,11 @@
             <span class="n">provider</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded_providers</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span>
             <span class="n">required_tags</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">get_requirements</span><span class="p">()</span>
             <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="n">stats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">required_tags</span><span class="p">]</span>
-            <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="kc">None</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
                 <span class="n">provider</span><span class="o">.</span><span class="n">on_validated</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
                 <span class="c1">#getattr(provider, &#39;_on_{}&#39;.format(event))(params)</span>
                 <span class="n">stats</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span>
-            <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="k">else</span><span class="p">:</span>
                 <span class="n">stats</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
                 
 
@@ -431,12 +431,12 @@
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">component</span><span class="p">,</span> <span class="n">BaseExtension</span><span class="p">):</span>
                 <span class="n">value</span> <span class="o">=</span> <span class="n">component</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> instance&#39;s &#39;get_value&#39; method returned </span><span class="si">{}</span><span class="s2">, expected &#39;str&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">item_str</span><span class="p">)))</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> instance&#39;s &#39;get_value&#39; method returned </span><span class="si">{}</span><span class="s2">, expected &#39;str&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">item_str</span><span class="p">)))</span>
                 <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">component</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
                 <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;component was of type </span><span class="si">{}</span><span class="s2">, expected &#39;str&#39; or an extension&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span><span class="p">))</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;component was of type </span><span class="si">{}</span><span class="s2">, expected &#39;str&#39; or an extension&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
 
         <span class="n">progress_bar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">seperator</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
         <span class="c1"># Overwrite previous printed content</span>
@@ -473,12 +473,12 @@
 <div class="viewcode-block" id="SimpleProgressBar"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.core.SimpleProgressBar">[docs]</a><span class="k">class</span> <span class="nc">SimpleProgressBar</span><span class="p">(</span><span class="n">ProgressManager</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">progress_manager.extensions</span> <span class="k">import</span> <span class="n">Percentage</span><span class="p">,</span> <span class="n">Timer</span><span class="p">,</span> <span class="n">ETANew</span><span class="p">,</span> <span class="n">Rate</span><span class="p">,</span> <span class="n">Bar</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">components</span> <span class="o">=</span> <span class="p">[</span><span class="n">Percentage</span><span class="p">(),</span> <span class="n">Bar</span><span class="p">()])</span></div>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">components</span> <span class="o">=</span> <span class="p">[</span><span class="n">Percentage</span><span class="p">(),</span> <span class="n">Bar</span><span class="p">()])</span></div>
 
 <div class="viewcode-block" id="AdvancedProgressBar"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.core.AdvancedProgressBar">[docs]</a><span class="k">class</span> <span class="nc">AdvancedProgressBar</span><span class="p">(</span><span class="n">ProgressManager</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">progress_manager.extensions</span> <span class="k">import</span> <span class="n">Percentage</span><span class="p">,</span> <span class="n">Timer</span><span class="p">,</span> <span class="n">ETA</span><span class="p">,</span> <span class="n">ETANew</span><span class="p">,</span> <span class="n">Rate</span><span class="p">,</span> <span class="n">Bar</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">components</span> <span class="o">=</span> <span class="p">[</span><span class="n">Percentage</span><span class="p">(),</span> <span class="n">Bar</span><span class="p">(),</span> <span class="n">Rate</span><span class="p">(),</span> <span class="n">Timer</span><span class="p">(),</span> <span class="n">ETA</span><span class="p">(),</span> <span class="n">ETANew</span><span class="p">()])</span></div>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">components</span> <span class="o">=</span> <span class="p">[</span><span class="n">Percentage</span><span class="p">(),</span> <span class="n">Bar</span><span class="p">(),</span> <span class="n">Rate</span><span class="p">(),</span> <span class="n">Timer</span><span class="p">(),</span> <span class="n">ETA</span><span class="p">(),</span> <span class="n">ETANew</span><span class="p">()])</span></div>
 
 <div class="viewcode-block" id="display_progress"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.core.display_progress">[docs]</a><span class="k">def</span> <span class="nf">display_progress</span><span class="p">(</span><span class="n">bar</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">display_progress</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
@@ -512,7 +512,7 @@
     <span class="n">ps</span><span class="o">.</span><span class="n">print_stats</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">getvalue</span><span class="p">())</span></div>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 
 </pre></div>
@@ -551,7 +551,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Priyam Singh.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
     </div>
   </body>
 </html>

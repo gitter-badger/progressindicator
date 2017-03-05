@@ -151,7 +151,7 @@ __init__ should be called like BaseExtension.__init__(self, requirements)</p>
 <code class="descname">on_update</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progress_manager/base.html#BaseExtension.on_update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progress_manager.base.BaseExtension.on_update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to set the look of the extension at each update.</p>
 <p>This method is called at each update. It is recommended to override the
-higher level functions <cite>_on_validated</cite> and <cite>_on_invalidated</cite> instead of
+higher level functions <cite>on_validated</cite> and <cite>on_invalidated</cite> instead of
 this method.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -277,27 +277,84 @@ in requirements is invalid.</p>
 <dl class="method">
 <dt id="progress_manager.base.BaseProvider.on_begin">
 <code class="descname">on_begin</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progress_manager/base.html#BaseProvider.on_begin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progress_manager.base.BaseProvider.on_begin" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Override this method to customize the initial look of the extension.</p>
+<p>By default, the appropriate after-validation method is called.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>array_like</em>) &#8211; Values of all keys specified in the requirements of the extension.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="progress_manager.base.BaseProvider.on_publish">
 <code class="descname">on_publish</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progress_manager/base.html#BaseProvider.on_publish"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progress_manager.base.BaseProvider.on_publish" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Override this method to calculate the value for the provider at each
+publish.</p>
+<p>This method is called at each update. It is recommended to override the
+higher level functions <cite>on_validated</cite> and <cite>on_invalidated</cite> instead of
+this method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>array_like</em>) &#8211; Values of all keys specified in the requirements of the extension.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="progress_manager.base.BaseProvider.on_end">
 <code class="descname">on_end</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progress_manager/base.html#BaseProvider.on_end"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progress_manager.base.BaseProvider.on_end" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Override this method to calculate the final value for the provider.</p>
+<p>By default, the appropriate after-validation method is called.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>array_like</em>) &#8211; Values of all keys specified in the requirements of the extension.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="progress_manager.base.BaseProvider.on_validated">
 <code class="descname">on_validated</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progress_manager/base.html#BaseProvider.on_validated"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progress_manager.base.BaseProvider.on_validated" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Override this method to calculate the value for the provider at each
+publish.</p>
+<p>This method is only called during an update if value of all keys in
+requirements are valid.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>array_like</em>) &#8211; Values of all keys specified in the requirements of the extension.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="progress_manager.base.BaseProvider.on_invalidated">
 <code class="descname">on_invalidated</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progress_manager/base.html#BaseProvider.on_invalidated"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progress_manager.base.BaseProvider.on_invalidated" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Override this method to calculate the value for the provider at each
+publish.</p>
+<p>This method is only called during an update if value for atleast one key
+in requirements is invalid.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>array_like</em>) &#8211; Values of all keys specified in the requirements of the extension.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 
@@ -306,7 +363,7 @@ in requirements is invalid.</p>
 <span id="progress-manager-core-module"></span><h2>progress_manager.core module<a class="headerlink" href="#module-progress_manager.core" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="progress_manager.core.ProgressManager">
-<em class="property">class </em><code class="descclassname">progress_manager.core.</code><code class="descname">ProgressManager</code><span class="sig-paren">(</span><em>components</em>, <em>min_value=0</em>, <em>max_value=100</em>, <em>stream=&lt;colorama.ansitowin32.StreamWrapper object at 0x0217C4B0&gt;</em>, <em>max_update_interval=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progress_manager/core.html#ProgressManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progress_manager.core.ProgressManager" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">progress_manager.core.</code><code class="descname">ProgressManager</code><span class="sig-paren">(</span><em>components</em>, <em>min_value=0</em>, <em>max_value=100</em>, <em>stream=&lt;_io.TextIOWrapper name='&lt;stderr&gt;' mode='w' encoding='UTF-8'&gt;</em>, <em>max_update_interval=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progress_manager/core.html#ProgressManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progress_manager.core.ProgressManager" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Utility Class to display Progress Bars in console.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -758,7 +815,7 @@ built-in <cite>Rate</cite> extension.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Priyam Singh.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
     </div>
   </body>
 </html>

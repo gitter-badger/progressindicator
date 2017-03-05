@@ -182,7 +182,7 @@
         <span class="sd">&quot;&quot;&quot;Override this method to set the look of the extension at each update.</span>
 
 <span class="sd">        This method is called at each update. It is recommended to override the</span>
-<span class="sd">        higher level functions `_on_validated` and `_on_invalidated` instead of</span>
+<span class="sd">        higher level functions `on_validated` and `on_invalidated` instead of</span>
 <span class="sd">        this method.</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
@@ -292,24 +292,76 @@
         <span class="k">return</span> <span class="kc">True</span>
 
 <div class="viewcode-block" id="BaseProvider.on_begin"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.base.BaseProvider.on_begin">[docs]</a>    <span class="k">def</span> <span class="nf">on_begin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Override this method to customize the initial look of the extension.</span>
+
+<span class="sd">        By default, the appropriate after-validation method is called.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        params : array_like</span>
+<span class="sd">            Values of all keys specified in the requirements of the extension.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">on_publish</span><span class="p">(</span><span class="n">params</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="BaseProvider.on_publish"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.base.BaseProvider.on_publish">[docs]</a>    <span class="k">def</span> <span class="nf">on_publish</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Override this method to calculate the value for the provider at each</span>
+<span class="sd">        publish.</span>
+
+<span class="sd">        This method is called at each update. It is recommended to override the</span>
+<span class="sd">        higher level functions `on_validated` and `on_invalidated` instead of</span>
+<span class="sd">        this method.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        params : array_like</span>
+<span class="sd">            Values of all keys specified in the requirements of the extension.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">on_validated</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">on_invalidated</span><span class="p">(</span><span class="n">params</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="BaseProvider.on_end"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.base.BaseProvider.on_end">[docs]</a>    <span class="k">def</span> <span class="nf">on_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Override this method to calculate the final value for the provider.</span>
+
+<span class="sd">        By default, the appropriate after-validation method is called.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        params : array_like</span>
+<span class="sd">            Values of all keys specified in the requirements of the extension.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">on_publish</span><span class="p">(</span><span class="n">params</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">(</span><span class="kc">None</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">params</span><span class="p">)</span>
 
 <div class="viewcode-block" id="BaseProvider.on_validated"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.base.BaseProvider.on_validated">[docs]</a>    <span class="k">def</span> <span class="nf">on_validated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Override this method to calculate the value for the provider at each</span>
+<span class="sd">        publish.</span>
+
+<span class="sd">        This method is only called during an update if value of all keys in</span>
+<span class="sd">        requirements are valid.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        params : array_like</span>
+<span class="sd">            Values of all keys specified in the requirements of the extension.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
 <div class="viewcode-block" id="BaseProvider.on_invalidated"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.base.BaseProvider.on_invalidated">[docs]</a>    <span class="k">def</span> <span class="nf">on_invalidated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Override this method to calculate the value for the provider at each</span>
+<span class="sd">        publish.</span>
+
+<span class="sd">        This method is only called during an update if value for atleast one key</span>
+<span class="sd">        in requirements is invalid.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        params : array_like</span>
+<span class="sd">            Values of all keys specified in the requirements of the extension.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></div></div>
     
 </pre></div>
@@ -348,7 +400,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Priyam Singh.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
     </div>
   </body>
 </html>
