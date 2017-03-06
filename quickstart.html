@@ -52,46 +52,104 @@
             
   <div class="section" id="quickstart">
 <h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="building-the-progressbar">
-<h2>Building the ProgressBar<a class="headerlink" href="#building-the-progressbar" title="Permalink to this headline">¶</a></h2>
-<p>Creating a ProgressBar is very easy. You can create it by using extensions.
-Let&#8217;s create our first ProgressBar.</p>
-<div class="section" id="in-a-loop">
-<h3>In a Loop<a class="headerlink" href="#in-a-loop" title="Permalink to this headline">¶</a></h3>
-<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">progress_manager</span> <span class="k">import</span> <span class="n">AdvancedProgressBar</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">bar</span> <span class="o">=</span> <span class="n">AdvancedProgressBar</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">bar</span><span class="o">.</span><span class="n">begin</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">bar</span><span class="o">.</span><span class="n">publish</span><span class="p">((</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">10</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">bar</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+<div class="section" id="displaying-a-progressbar">
+<h2>Displaying a ProgressBar<a class="headerlink" href="#displaying-a-progressbar" title="Permalink to this headline">¶</a></h2>
+<p>Using a ProgressBar in your code is very easy. Let us see some ways by
+which we can show a functioning progress bar during a task.</p>
+<div class="section" id="usage-in-a-loop">
+<h3>Usage In a Loop<a class="headerlink" href="#usage-in-a-loop" title="Permalink to this headline">¶</a></h3>
+<p>You can use an AdvancedProgressBar instance named <cite>bar</cite> to display a
+ProgressBar. Here we are publishing the percentage of the task completed
+to <cite>bar</cite>. Note that we need to call <cite>begin</cite> and <cite>end</cite> at appropriate time.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">progress_manager</span> <span class="k">import</span> <span class="n">AdvancedProgressBar</span>
+<span class="n">bar</span> <span class="o">=</span> <span class="n">AdvancedProgressBar</span><span class="p">()</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">begin</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="n">bar</span><span class="o">.</span><span class="n">publish</span><span class="p">((</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="wrapping-a-generator">
 <h3>Wrapping a Generator<a class="headerlink" href="#wrapping-a-generator" title="Permalink to this headline">¶</a></h3>
-<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">generator</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-<span class="gp">&gt;&gt;&gt; </span>        <span class="k">yield</span> <span class="n">x</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bar</span><span class="p">(</span><span class="n">generator</span><span class="p">(</span><span class="n">n</span><span class="p">)):</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+<p>Let us define a generator that just yields numbers from 0 to n.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">generator</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">yield</span> <span class="n">x</span>
 </pre></div>
 </div>
+<p>You can wrap this generator with a ProgressBar instance and you should
+get a nice progress indicator. Note that you should use a Non-deterministic
+progress bar since there is no way to automatically calculate the progress
+of a generator since it can even be infinite.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bar</span><span class="p">(</span><span class="n">generator</span><span class="p">(</span><span class="n">n</span><span class="p">)):</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Also Note that, there is no need to call <cite>begin</cite>, <cite>publish</cite>, or <cite>end</cite>.</p>
 </div>
 <div class="section" id="wrapping-a-iterator">
 <h3>Wrapping a Iterator<a class="headerlink" href="#wrapping-a-iterator" title="Permalink to this headline">¶</a></h3>
-<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)):</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+<p>Iterators can also be wrapped with a ProgressBar instance. Similar to a
+generator there is no need to call <cite>begin</cite>, <cite>publish</cite>, or <cite>end</cite>. If the
+iterator provides a __len__ implementation, The progress is automatically
+calculated, like in the following case.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)):</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="using-with-statement">
 <h3>Using with statement<a class="headerlink" href="#using-with-statement" title="Permalink to this headline">¶</a></h3>
-<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">AdvancedProgressBar</span><span class="p">()</span> <span class="k">as</span> <span class="n">bar</span><span class="p">:</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-<span class="gp">&gt;&gt;&gt; </span>        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span>        <span class="n">bar</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">n</span><span class="p">)</span>
+<p>To avoid calling <cite>begin</cite> and <cite>end</cite>, you can wrap your code using a with
+statement that ensures that <cite>begin</cite> and <cite>end</cite> are automatically called
+at appropriate times.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">AdvancedProgressBar</span><span class="p">()</span> <span class="k">as</span> <span class="n">bar</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+        <span class="n">bar</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">n</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+</div>
+<div class="section" id="creating-a-custom-progressbar">
+<h2>Creating a Custom ProgressBar<a class="headerlink" href="#creating-a-custom-progressbar" title="Permalink to this headline">¶</a></h2>
+<p>The default PrgressBar is enough for most purposes. But if you need to
+customize the look of the ProgressBar, you can do so via <cite>Extensions</cite>.</p>
+<div class="section" id="building-the-progressbar">
+<h3>Building The ProgressBar<a class="headerlink" href="#building-the-progressbar" title="Permalink to this headline">¶</a></h3>
+<p>ProgressManager takes a parameter named components which is an iterable
+of string or extensions. Using this, you can customize the look of your
+progress bar as per your wish.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">progress_manager.core</span> <span class="k">import</span> <span class="n">ProgressManager</span>
+<span class="kn">from</span> <span class="nn">progress_manager.extensions</span> <span class="k">import</span> <span class="n">Percentage</span><span class="p">,</span> <span class="n">Bar</span>
+<span class="n">bar</span> <span class="o">=</span> <span class="n">ProgressManager</span><span class="p">(</span><span class="n">components</span><span class="o">=</span><span class="p">[</span><span class="n">Bar</span><span class="p">(),</span> <span class="s2">&quot;Progress =&quot;</span><span class="p">,</span> <span class="n">Percentage</span><span class="p">()])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="built-in-extensions">
+<h3>Built-in Extensions<a class="headerlink" href="#built-in-extensions" title="Permalink to this headline">¶</a></h3>
+<p>A large number of extensions are provided by default. More details on them
+can be found in the API Reference.</p>
+<ul class="simple">
+<li>Bar</li>
+<li>BouncingBar</li>
+<li>Ellipses</li>
+<li>Alternator</li>
+<li>Spinner</li>
+<li>Loader</li>
+<li>Timer</li>
+<li>ETA</li>
+<li>Rate</li>
+<li>Percentage</li>
+</ul>
+</div>
+<div class="section" id="writing-your-own-extensions">
+<h3>Writing your own Extensions<a class="headerlink" href="#writing-your-own-extensions" title="Permalink to this headline">¶</a></h3>
+<p>Although the extensions provided by default should be enough, but you can
+always create your own extensions. An Extension must inherit the <cite>BaseExtension</cite>
+class in <cite>progress_manager.base</cite>. More detail on this can be found in the
+API Reference.</p>
 </div>
 </div>
 </div>
@@ -105,11 +163,17 @@ Let&#8217;s create our first ProgressBar.</p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Quickstart</a><ul>
-<li><a class="reference internal" href="#building-the-progressbar">Building the ProgressBar</a><ul>
-<li><a class="reference internal" href="#in-a-loop">In a Loop</a></li>
+<li><a class="reference internal" href="#displaying-a-progressbar">Displaying a ProgressBar</a><ul>
+<li><a class="reference internal" href="#usage-in-a-loop">Usage In a Loop</a></li>
 <li><a class="reference internal" href="#wrapping-a-generator">Wrapping a Generator</a></li>
 <li><a class="reference internal" href="#wrapping-a-iterator">Wrapping a Iterator</a></li>
 <li><a class="reference internal" href="#using-with-statement">Using with statement</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#creating-a-custom-progressbar">Creating a Custom ProgressBar</a><ul>
+<li><a class="reference internal" href="#building-the-progressbar">Building The ProgressBar</a></li>
+<li><a class="reference internal" href="#built-in-extensions">Built-in Extensions</a></li>
+<li><a class="reference internal" href="#writing-your-own-extensions">Writing your own Extensions</a></li>
 </ul>
 </li>
 </ul>
