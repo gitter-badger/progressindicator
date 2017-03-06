@@ -132,24 +132,68 @@ progress bar as per your wish.</p>
 <p>A large number of extensions are provided by default. More details on them
 can be found in the API Reference.</p>
 <ul class="simple">
-<li>Bar</li>
-<li>BouncingBar</li>
-<li>Ellipses</li>
-<li>Alternator</li>
-<li>Spinner</li>
-<li>Loader</li>
-<li>Timer</li>
-<li>ETA</li>
-<li>Rate</li>
-<li>Percentage</li>
+<li><a class="reference internal" href="source/progress_manager.html#progress_manager.extensions.Bar" title="progress_manager.extensions.Bar"><code class="xref py py-class docutils literal"><span class="pre">Bar</span></code></a></li>
+<li><a class="reference internal" href="source/progress_manager.html#progress_manager.extensions.BouncingBar" title="progress_manager.extensions.BouncingBar"><code class="xref py py-class docutils literal"><span class="pre">BouncingBar</span></code></a></li>
+<li><a class="reference internal" href="source/progress_manager.html#progress_manager.extensions.Ellipses" title="progress_manager.extensions.Ellipses"><code class="xref py py-class docutils literal"><span class="pre">Ellipses</span></code></a></li>
+<li><a class="reference internal" href="source/progress_manager.html#progress_manager.extensions.Alternator" title="progress_manager.extensions.Alternator"><code class="xref py py-class docutils literal"><span class="pre">Alternator</span></code></a></li>
+<li><a class="reference internal" href="source/progress_manager.html#progress_manager.extensions.Spinner" title="progress_manager.extensions.Spinner"><code class="xref py py-class docutils literal"><span class="pre">Spinner</span></code></a></li>
+<li><a class="reference internal" href="source/progress_manager.html#progress_manager.extensions.Loader" title="progress_manager.extensions.Loader"><code class="xref py py-class docutils literal"><span class="pre">Loader</span></code></a></li>
+<li><a class="reference internal" href="source/progress_manager.html#progress_manager.extensions.Timer" title="progress_manager.extensions.Timer"><code class="xref py py-class docutils literal"><span class="pre">Timer</span></code></a></li>
+<li><a class="reference internal" href="source/progress_manager.html#progress_manager.extensions.ETA" title="progress_manager.extensions.ETA"><code class="xref py py-class docutils literal"><span class="pre">ETA</span></code></a></li>
+<li><a class="reference internal" href="source/progress_manager.html#progress_manager.extensions.Rate" title="progress_manager.extensions.Rate"><code class="xref py py-class docutils literal"><span class="pre">Rate</span></code></a></li>
+<li><a class="reference internal" href="source/progress_manager.html#progress_manager.extensions.Percentage" title="progress_manager.extensions.Percentage"><code class="xref py py-class docutils literal"><span class="pre">Percentage</span></code></a></li>
 </ul>
 </div>
 <div class="section" id="writing-your-own-extensions">
 <h3>Writing your own Extensions<a class="headerlink" href="#writing-your-own-extensions" title="Permalink to this headline">¶</a></h3>
 <p>Although the extensions provided by default should be enough, but you can
-always create your own extensions. An Extension must inherit the <cite>BaseExtension</cite>
-class in <cite>progress_manager.base</cite>. More detail on this can be found in the
-API Reference.</p>
+always create your own extensions by subclassing
+<cite>progress_manager.base.BaseExtension</cite>. More detail on this can be found
+in the API Reference.</p>
+<p>Every extension should call the <cite>__init__</cite> method of the BaseExtension
+class by passing a list of strings as <cite>requirements</cite>. The strings which
+can be passed are known as tags. Following is the list of all supported
+tags.</p>
+<ul class="simple">
+<li>value</li>
+<li>max_value</li>
+<li>min_value</li>
+<li>begin_time</li>
+<li>end_time</li>
+<li>iterations</li>
+<li>percentage</li>
+<li>time_since_begin</li>
+<li>time_since_update</li>
+<li>deltatime</li>
+<li>eta</li>
+<li>rate</li>
+</ul>
+<p>You can then override several event methods of
+<a class="reference internal" href="source/progress_manager.html#progress_manager.base.BaseExtension" title="progress_manager.base.BaseExtension"><code class="xref py py-class docutils literal"><span class="pre">BaseExtension</span></code></a>, such as <cite>on_begin</cite>,
+<cite>on_update</cite>, <cite>on_validated</cite>, <cite>on_invalidated</cite>, <cite>on_end</cite> to suit your
+needs. In each of these methods you recieve a list of values
+corresponding to the requirements you passed in the <cite>__init__</cite> method.
+Note that <cite>on_validated</cite> and <cite>on_invalidated</cite> are called by the default
+implementation of <cite>on_update</cite>. If you override <cite>on_update</cite>, those methods
+will no longer be called unless you call them explicitly.
+In general, you should use <cite>on_validated</cite> and <cite>on_invalidated</cite> for
+most of the purposes.
+To set the string that is to be displayed by your extension, just call
+the <cite>set_value</cite> method from your extension</p>
+</div>
+<div class="section" id="writing-your-own-providers">
+<h3>Writing your own Providers<a class="headerlink" href="#writing-your-own-providers" title="Permalink to this headline">¶</a></h3>
+<p>But what if you want need some parameter which is not provided by the
+built-in tags? You can also create Custom Providers to calculate values
+and specify a new tag for them that can be used by other extensions.</p>
+<p>Creating a provider is similar to creating an extension. But note that,
+instead of <cite>on_update</cite>, here we can override <cite>on_publish</cite>. Also the
+__init__ method does not take update_interval as a parameter, Instead
+it takes a parameter <cite>tag</cite> which takes a string. Rest of api is same.
+The tag should not collide with any built-in tag.
+Prior to using a provider you need to register it. To register,
+just call the <cite>register_provider</cite> method of the ProgressManager class
+and pass it an instance of your provider.</p>
 </div>
 </div>
 </div>
@@ -174,6 +218,7 @@ API Reference.</p>
 <li><a class="reference internal" href="#building-the-progressbar">Building The ProgressBar</a></li>
 <li><a class="reference internal" href="#built-in-extensions">Built-in Extensions</a></li>
 <li><a class="reference internal" href="#writing-your-own-extensions">Writing your own Extensions</a></li>
+<li><a class="reference internal" href="#writing-your-own-providers">Writing your own Providers</a></li>
 </ul>
 </li>
 </ul>
