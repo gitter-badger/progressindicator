@@ -59,16 +59,15 @@
 <em class="property">class </em><code class="descclassname">progress_manager.base.</code><code class="descname">BaseExtension</code><span class="sig-paren">(</span><em>requirements=[]</em>, <em>update_interval=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progress_manager/base.html#BaseExtension"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progress_manager.base.BaseExtension" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Base class for all extensions.</p>
-<p>All extensions need to inherit from this class. Before calling any
-method of an extension, It is explicitly checked whether it inherits
-from this class. This class provides various methods which can be
-overidden to achieve desired behaviour.</p>
+<p>All extensions must inherit from this class. This class provides various
+methods which can be overidden to achieve desired behaviour.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>requirements</strong> (<em>array_like</em>) &#8211; Keys whose value, the extension needs.</li>
+<li><strong>requirements</strong> (<em>array_like</em>) &#8211; iterable of strings where each string should be a built-in tag or a tag
+provided by a registered custom provider.</li>
 <li><strong>update_interval</strong> (<em>float</em>) &#8211; Desired update interval for the extension.</li>
 </ul>
 </td>
@@ -87,14 +86,12 @@ __init__ should be called like BaseExtension.__init__(self, requirements)</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">requirements of the extension.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of tags required by the extension.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">array_like</td>
 </tr>
 </tbody>
 </table>
-<p class="rubric">Notes</p>
-<p>Never Override this method.</p>
 </dd></dl>
 
 <dl class="method">
@@ -109,8 +106,6 @@ __init__ should be called like BaseExtension.__init__(self, requirements)</p>
 </tr>
 </tbody>
 </table>
-<p class="rubric">Notes</p>
-<p>Never Override this method.</p>
 </dd></dl>
 
 <dl class="method">
@@ -127,8 +122,6 @@ __init__ should be called like BaseExtension.__init__(self, requirements)</p>
 </tr>
 </tbody>
 </table>
-<p class="rubric">Notes</p>
-<p>Never Override this method.</p>
 </dd></dl>
 
 <dl class="method">
@@ -182,8 +175,8 @@ this method.</p>
 <dt id="progress_manager.base.BaseExtension.on_validated">
 <code class="descname">on_validated</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progress_manager/base.html#BaseExtension.on_validated"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progress_manager.base.BaseExtension.on_validated" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to set the look of the extension at each update.</p>
-<p>This method is only called during an update if value of all keys in
-requirements are valid.</p>
+<p>This method is only called during an update if value of all tags
+required by the extension are valid.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -198,8 +191,8 @@ requirements are valid.</p>
 <dt id="progress_manager.base.BaseExtension.on_invalidated">
 <code class="descname">on_invalidated</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progress_manager/base.html#BaseExtension.on_invalidated"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progress_manager.base.BaseExtension.on_invalidated" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to set the look of the extension at each update.</p>
-<p>This method is only called during an update if value for atleast one key
-in requirements is invalid.</p>
+<p>This method is only called during an update if value for atleast one
+tag required by the extension is invalid.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -230,20 +223,28 @@ in requirements is invalid.</p>
 </tr>
 </tbody>
 </table>
-<p class="rubric">Notes</p>
-<p>Never Override this method.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="progress_manager.base.BaseProvider.get_tag">
 <code class="descname">get_tag</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progress_manager/base.html#BaseProvider.get_tag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progress_manager.base.BaseProvider.get_tag" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the <cite>tag</cite> of the Provider.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>tag</cite> of the provider.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="progress_manager.base.BaseProvider.set_value">
 <code class="descname">set_value</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progress_manager/base.html#BaseProvider.set_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progress_manager.base.BaseProvider.set_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method sets the content which is to be printed to console.</p>
+<dd><p>This method sets the value of the tag provided by the provider.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -252,14 +253,12 @@ in requirements is invalid.</p>
 </tr>
 </tbody>
 </table>
-<p class="rubric">Notes</p>
-<p>Never Override this method.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="progress_manager.base.BaseProvider.get_value">
 <code class="descname">get_value</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progress_manager/base.html#BaseProvider.get_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progress_manager.base.BaseProvider.get_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the current value to be printed to console.</p>
+<dd><p>Get the current value of the provider&#8217;s tag.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -270,14 +269,12 @@ in requirements is invalid.</p>
 </tr>
 </tbody>
 </table>
-<p class="rubric">Notes</p>
-<p>Never Override this method.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="progress_manager.base.BaseProvider.on_begin">
 <code class="descname">on_begin</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progress_manager/base.html#BaseProvider.on_begin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progress_manager.base.BaseProvider.on_begin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to customize the initial look of the extension.</p>
+<dd><p>Override this method to set the initial value for the provider.</p>
 <p>By default, the appropriate after-validation method is called.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -294,14 +291,14 @@ in requirements is invalid.</p>
 <code class="descname">on_publish</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progress_manager/base.html#BaseProvider.on_publish"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progress_manager.base.BaseProvider.on_publish" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to calculate the value for the provider at each
 publish.</p>
-<p>This method is called at each update. It is recommended to override the
+<p>This method is called on every publish. It is recommended to override the
 higher level functions <cite>on_validated</cite> and <cite>on_invalidated</cite> instead of
 this method.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>array_like</em>) &#8211; Values of all keys specified in the requirements of the extension.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>array_like</em>) &#8211; Values of all tags specified in the requirements of the extension.</td>
 </tr>
 </tbody>
 </table>
@@ -316,7 +313,7 @@ this method.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>array_like</em>) &#8211; Values of all keys specified in the requirements of the extension.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>array_like</em>) &#8211; Values of all tags specified in the requirements of the extension.</td>
 </tr>
 </tbody>
 </table>

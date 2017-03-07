@@ -58,15 +58,14 @@
 <div class="viewcode-block" id="BaseExtension"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.base.BaseExtension">[docs]</a><span class="k">class</span> <span class="nc">BaseExtension</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">metaclass</span> <span class="o">=</span> <span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Base class for all extensions.</span>
 
-<span class="sd">    All extensions need to inherit from this class. Before calling any</span>
-<span class="sd">    method of an extension, It is explicitly checked whether it inherits</span>
-<span class="sd">    from this class. This class provides various methods which can be</span>
-<span class="sd">    overidden to achieve desired behaviour.</span>
+<span class="sd">    All extensions must inherit from this class. This class provides various</span>
+<span class="sd">    methods which can be overidden to achieve desired behaviour.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    requirements : array_like</span>
-<span class="sd">        Keys whose value, the extension needs.</span>
+<span class="sd">        iterable of strings where each string should be a built-in tag or a tag</span>
+<span class="sd">        provided by a registered custom provider.</span>
 
 <span class="sd">    update_interval : float</span>
 <span class="sd">        Desired update interval for the extension.</span>
@@ -89,11 +88,7 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        array_like:</span>
-<span class="sd">            requirements of the extension.</span>
-
-<span class="sd">        Notes</span>
-<span class="sd">        -----</span>
-<span class="sd">        Never Override this method.</span>
+<span class="sd">            list of tags required by the extension.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_requirements</span></div>
 
@@ -145,10 +140,6 @@
 <span class="sd">        ----------</span>
 <span class="sd">        value : str</span>
 <span class="sd">            Value to be set.</span>
-
-<span class="sd">        Notes</span>
-<span class="sd">        -----</span>
-<span class="sd">        Never Override this method.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="n">value</span></div>
 
@@ -159,10 +150,6 @@
 <span class="sd">        -------</span>
 <span class="sd">        str</span>
 <span class="sd">            value set by `set_value`</span>
-
-<span class="sd">        Notes</span>
-<span class="sd">        -----</span>
-<span class="sd">        Never Override this method.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span></div>
 
@@ -210,8 +197,8 @@
 <div class="viewcode-block" id="BaseExtension.on_validated"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.base.BaseExtension.on_validated">[docs]</a>    <span class="k">def</span> <span class="nf">on_validated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Override this method to set the look of the extension at each update.</span>
 
-<span class="sd">        This method is only called during an update if value of all keys in</span>
-<span class="sd">        requirements are valid.</span>
+<span class="sd">        This method is only called during an update if value of all tags</span>
+<span class="sd">        required by the extension are valid.</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -223,8 +210,8 @@
 <div class="viewcode-block" id="BaseExtension.on_invalidated"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.base.BaseExtension.on_invalidated">[docs]</a>    <span class="k">def</span> <span class="nf">on_invalidated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Override this method to set the look of the extension at each update.</span>
 
-<span class="sd">        This method is only called during an update if value for atleast one key</span>
-<span class="sd">        in requirements is invalid.</span>
+<span class="sd">        This method is only called during an update if value for atleast one</span>
+<span class="sd">        tag required by the extension is invalid.</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -247,52 +234,41 @@
 <span class="sd">        -------</span>
 <span class="sd">        array_like:</span>
 <span class="sd">            requirements of the extension.</span>
-
-<span class="sd">        Notes</span>
-<span class="sd">        -----</span>
-<span class="sd">        Never Override this method.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_requirements</span></div>
 
 <div class="viewcode-block" id="BaseProvider.get_tag"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.base.BaseProvider.get_tag">[docs]</a>    <span class="k">def</span> <span class="nf">get_tag</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return the `tag` of the Provider.</span>
+        <span class="sd">&quot;&quot;&quot;Return the `tag` of the Provider.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str:</span>
+<span class="sd">            `tag` of the provider.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tag</span></div>
 
 <div class="viewcode-block" id="BaseProvider.set_value"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.base.BaseProvider.set_value">[docs]</a>    <span class="k">def</span> <span class="nf">set_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;This method sets the content which is to be printed to console.</span>
+        <span class="sd">&quot;&quot;&quot;This method sets the value of the tag provided by the provider.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        value : str</span>
 <span class="sd">            Value to be set.</span>
-
-<span class="sd">        Notes</span>
-<span class="sd">        -----</span>
-<span class="sd">        Never Override this method.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="n">value</span></div>
 
 <div class="viewcode-block" id="BaseProvider.get_value"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.base.BaseProvider.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get the current value to be printed to console.</span>
+        <span class="sd">&quot;&quot;&quot;Get the current value of the provider&#39;s tag.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        str</span>
 <span class="sd">            value set by `set_value`</span>
-
-<span class="sd">        Notes</span>
-<span class="sd">        -----</span>
-<span class="sd">        Never Override this method.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span></div>
 
-    <span class="k">def</span> <span class="nf">_is_update_required</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="kc">True</span>
-
 <div class="viewcode-block" id="BaseProvider.on_begin"><a class="viewcode-back" href="../../source/progress_manager.html#progress_manager.base.BaseProvider.on_begin">[docs]</a>    <span class="k">def</span> <span class="nf">on_begin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Override this method to customize the initial look of the extension.</span>
+        <span class="sd">&quot;&quot;&quot;Override this method to set the initial value for the provider.</span>
 
 <span class="sd">        By default, the appropriate after-validation method is called.</span>
 
@@ -307,14 +283,14 @@
         <span class="sd">&quot;&quot;&quot;Override this method to calculate the value for the provider at each</span>
 <span class="sd">        publish.</span>
 
-<span class="sd">        This method is called at each update. It is recommended to override the</span>
+<span class="sd">        This method is called on every publish. It is recommended to override the</span>
 <span class="sd">        higher level functions `on_validated` and `on_invalidated` instead of</span>
 <span class="sd">        this method.</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        params : array_like</span>
-<span class="sd">            Values of all keys specified in the requirements of the extension.</span>
+<span class="sd">            Values of all tags specified in the requirements of the extension.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">on_validated</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
@@ -329,7 +305,7 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        params : array_like</span>
-<span class="sd">            Values of all keys specified in the requirements of the extension.</span>
+<span class="sd">            Values of all tags specified in the requirements of the extension.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">on_publish</span><span class="p">(</span><span class="n">params</span><span class="p">)</span></div>
 
