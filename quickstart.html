@@ -54,13 +54,15 @@
 <h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="displaying-a-progressbar">
 <h2>Displaying a ProgressBar<a class="headerlink" href="#displaying-a-progressbar" title="Permalink to this headline">¶</a></h2>
-<p>Using a ProgressBar in your code is very easy. Let us see some ways by
+<p>Using a <cite>Progress bar</cite> in your code is very easy. Let us see some ways by
 which we can show a functioning progress bar during a task.</p>
 <div class="section" id="usage-in-a-loop">
 <h3>Usage In a Loop<a class="headerlink" href="#usage-in-a-loop" title="Permalink to this headline">¶</a></h3>
-<p>You can use an AdvancedProgressBar instance named <cite>bar</cite> to display a
-ProgressBar. Here we are publishing the percentage of the task completed
-to <cite>bar</cite>. Note that we need to call <cite>begin</cite> and <cite>end</cite> at appropriate time.</p>
+<p>You can use an <a class="reference internal" href="source/progress_manager.html#progress_manager.core.AdvancedProgressBar" title="progress_manager.core.AdvancedProgressBar"><code class="xref py py-class docutils literal"><span class="pre">AdvancedProgressBar</span></code></a> instance named
+<cite>bar</cite> to display a ProgressBar. Here we are publishing the percentage of
+the task completed to <cite>bar</cite>. Note that we need to call
+<a class="reference internal" href="source/progress_manager.html#progress_manager.core.ProgressManager.begin" title="progress_manager.core.ProgressManager.begin"><code class="xref py py-meth docutils literal"><span class="pre">begin()</span></code></a> and
+<a class="reference internal" href="source/progress_manager.html#progress_manager.core.ProgressManager.end" title="progress_manager.core.ProgressManager.end"><code class="xref py py-meth docutils literal"><span class="pre">end()</span></code></a> at appropriate time.</p>
 <div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">progress_manager</span> <span class="k">import</span> <span class="n">AdvancedProgressBar</span>
 <span class="n">bar</span> <span class="o">=</span> <span class="n">AdvancedProgressBar</span><span class="p">()</span>
 <span class="n">bar</span><span class="o">.</span><span class="n">begin</span><span class="p">()</span>
@@ -78,21 +80,23 @@ to <cite>bar</cite>. Note that we need to call <cite>begin</cite> and <cite>end<
         <span class="k">yield</span> <span class="n">x</span>
 </pre></div>
 </div>
-<p>You can wrap this generator with a ProgressBar instance and you should
-get a nice progress indicator. Note that you should use a Non-deterministic
-progress bar since there is no way to automatically calculate the progress
-of a generator since it can even be infinite.</p>
+<p>You can wrap this generator with a <a class="reference internal" href="source/progress_manager.html#progress_manager.core.ProgressManager" title="progress_manager.core.ProgressManager"><code class="xref py py-class docutils literal"><span class="pre">ProgressManager</span></code></a> instance and
+you should get a nice progress indicator. Note that you should use a
+Indeterminate progress bar since there is no way to automatically
+calculate the progress of a generator since it can even be infinite.</p>
 <div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bar</span><span class="p">(</span><span class="n">generator</span><span class="p">(</span><span class="n">n</span><span class="p">)):</span>
     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Also Note that, there is no need to call <cite>begin</cite>, <cite>publish</cite>, or <cite>end</cite>.</p>
+<p>Also Note that, there is no need to call <a class="reference internal" href="source/progress_manager.html#progress_manager.core.ProgressManager.begin" title="progress_manager.core.ProgressManager.begin"><code class="xref py py-meth docutils literal"><span class="pre">begin()</span></code></a>,
+<a class="reference internal" href="source/progress_manager.html#progress_manager.core.ProgressManager.publish" title="progress_manager.core.ProgressManager.publish"><code class="xref py py-meth docutils literal"><span class="pre">publish()</span></code></a>, or <a class="reference internal" href="source/progress_manager.html#progress_manager.core.ProgressManager.end" title="progress_manager.core.ProgressManager.end"><code class="xref py py-meth docutils literal"><span class="pre">end()</span></code></a>.</p>
 </div>
 <div class="section" id="wrapping-a-iterator">
 <h3>Wrapping a Iterator<a class="headerlink" href="#wrapping-a-iterator" title="Permalink to this headline">¶</a></h3>
 <p>Iterators can also be wrapped with a ProgressBar instance. Similar to a
-generator there is no need to call <cite>begin</cite>, <cite>publish</cite>, or <cite>end</cite>. If the
-iterator provides a __len__ implementation, The progress is automatically
+generator there is no need to call <a class="reference internal" href="source/progress_manager.html#progress_manager.core.ProgressManager.begin" title="progress_manager.core.ProgressManager.begin"><code class="xref py py-meth docutils literal"><span class="pre">begin()</span></code></a>,
+<a class="reference internal" href="source/progress_manager.html#progress_manager.core.ProgressManager.publish" title="progress_manager.core.ProgressManager.publish"><code class="xref py py-meth docutils literal"><span class="pre">publish()</span></code></a>, or <a class="reference internal" href="source/progress_manager.html#progress_manager.core.ProgressManager.end" title="progress_manager.core.ProgressManager.end"><code class="xref py py-meth docutils literal"><span class="pre">end()</span></code></a>. If the
+iterator provides a <code class="docutils literal"><span class="pre">__len__</span></code> implementation, The progress is automatically
 calculated, like in the following case.</p>
 <div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)):</span>
     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
@@ -101,8 +105,9 @@ calculated, like in the following case.</p>
 </div>
 <div class="section" id="using-with-statement">
 <h3>Using with statement<a class="headerlink" href="#using-with-statement" title="Permalink to this headline">¶</a></h3>
-<p>To avoid calling <cite>begin</cite> and <cite>end</cite>, you can wrap your code using a with
-statement that ensures that <cite>begin</cite> and <cite>end</cite> are automatically called
+<p>To avoid calling <a class="reference internal" href="source/progress_manager.html#progress_manager.core.ProgressManager.begin" title="progress_manager.core.ProgressManager.begin"><code class="xref py py-meth docutils literal"><span class="pre">begin()</span></code></a> and
+<a class="reference internal" href="source/progress_manager.html#progress_manager.core.ProgressManager.end" title="progress_manager.core.ProgressManager.end"><code class="xref py py-meth docutils literal"><span class="pre">end()</span></code></a>, you can wrap your code using a <code class="docutils literal"><span class="pre">with</span></code>
+statement that ensures that they are automatically called
 at appropriate times.</p>
 <div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">AdvancedProgressBar</span><span class="p">()</span> <span class="k">as</span> <span class="n">bar</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
@@ -115,12 +120,12 @@ at appropriate times.</p>
 <div class="section" id="creating-a-custom-progressbar">
 <h2>Creating a Custom ProgressBar<a class="headerlink" href="#creating-a-custom-progressbar" title="Permalink to this headline">¶</a></h2>
 <p>The default PrgressBar is enough for most purposes. But if you need to
-customize the look of the ProgressBar, you can do so via <cite>Extensions</cite>.</p>
+customize the look of the ProgressBar, you can do so via <a class="reference internal" href="source/progress_manager.html#module-progress_manager.extensions" title="progress_manager.extensions"><code class="xref py py-mod docutils literal"><span class="pre">extensions</span></code></a>.</p>
 <div class="section" id="building-the-progressbar">
 <h3>Building The ProgressBar<a class="headerlink" href="#building-the-progressbar" title="Permalink to this headline">¶</a></h3>
-<p>ProgressManager takes a parameter named components which is an iterable
-of string or extensions. Using this, you can customize the look of your
-progress bar as per your wish.</p>
+<p><a class="reference internal" href="source/progress_manager.html#progress_manager.core.ProgressManager" title="progress_manager.core.ProgressManager"><code class="xref py py-class docutils literal"><span class="pre">ProgressManager</span></code></a> takes a parameter named components which is an
+iterable of string or extensions. Using this, you can customize the look
+of your progress bar as per your wish.</p>
 <div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">progress_manager.core</span> <span class="k">import</span> <span class="n">ProgressManager</span>
 <span class="kn">from</span> <span class="nn">progress_manager.extensions</span> <span class="k">import</span> <span class="n">Percentage</span><span class="p">,</span> <span class="n">Bar</span>
 <span class="n">bar</span> <span class="o">=</span> <span class="n">ProgressManager</span><span class="p">(</span><span class="n">components</span><span class="o">=</span><span class="p">[</span><span class="n">Bar</span><span class="p">(),</span> <span class="s2">&quot;Progress =&quot;</span><span class="p">,</span> <span class="n">Percentage</span><span class="p">()])</span>
@@ -148,12 +153,12 @@ can be found in the API Reference.</p>
 <h3>Writing your own Extensions<a class="headerlink" href="#writing-your-own-extensions" title="Permalink to this headline">¶</a></h3>
 <p>Although the extensions provided by default should be enough, but you can
 always create your own extensions by subclassing
-<cite>progress_manager.base.BaseExtension</cite>. More detail on this can be found
+<a class="reference internal" href="source/progress_manager.html#progress_manager.base.BaseExtension" title="progress_manager.base.BaseExtension"><code class="xref py py-class docutils literal"><span class="pre">BaseExtension</span></code></a>. More detail on this can be found
 in the API Reference.</p>
-<p>Every extension should call the <cite>__init__</cite> method of the BaseExtension
-class by passing a list of strings as <cite>requirements</cite>. The strings which
-can be passed are known as tags. Following is the list of all supported
-tags.</p>
+<p>Every extension should call the <code class="xref py py-meth docutils literal"><span class="pre">__init__()</span></code> method
+of the <cite>BaseExtension</cite> class by passing a list of strings as
+<code class="docutils literal"><span class="pre">requirements</span></code>. The strings which can be passed are known as tags.
+Following is the list of all supported tags.</p>
 <ul class="simple">
 <li>value</li>
 <li>max_value</li>
@@ -169,17 +174,20 @@ tags.</p>
 <li>rate</li>
 </ul>
 <p>You can then override several event methods of
-<a class="reference internal" href="source/progress_manager.html#progress_manager.base.BaseExtension" title="progress_manager.base.BaseExtension"><code class="xref py py-class docutils literal"><span class="pre">BaseExtension</span></code></a>, such as <cite>on_begin</cite>,
-<cite>on_update</cite>, <cite>on_validated</cite>, <cite>on_invalidated</cite>, <cite>on_end</cite> to suit your
-needs. In each of these methods you recieve a list of values
-corresponding to the requirements you passed in the <cite>__init__</cite> method.
-Note that <cite>on_validated</cite> and <cite>on_invalidated</cite> are called by the default
-implementation of <cite>on_update</cite>. If you override <cite>on_update</cite>, those methods
-will no longer be called unless you call them explicitly.
-In general, you should use <cite>on_validated</cite> and <cite>on_invalidated</cite> for
-most of the purposes.
+<a class="reference internal" href="source/progress_manager.html#progress_manager.base.BaseExtension" title="progress_manager.base.BaseExtension"><code class="xref py py-class docutils literal"><span class="pre">BaseExtension</span></code></a>, such as <a class="reference internal" href="source/progress_manager.html#progress_manager.base.BaseExtension.on_begin" title="progress_manager.base.BaseExtension.on_begin"><code class="xref py py-meth docutils literal"><span class="pre">on_begin()</span></code></a>,
+<a class="reference internal" href="source/progress_manager.html#progress_manager.base.BaseExtension.on_update" title="progress_manager.base.BaseExtension.on_update"><code class="xref py py-meth docutils literal"><span class="pre">on_update()</span></code></a>, <a class="reference internal" href="source/progress_manager.html#progress_manager.base.BaseExtension.on_validated" title="progress_manager.base.BaseExtension.on_validated"><code class="xref py py-meth docutils literal"><span class="pre">on_validated()</span></code></a>,
+<a class="reference internal" href="source/progress_manager.html#progress_manager.base.BaseExtension.on_invalidated" title="progress_manager.base.BaseExtension.on_invalidated"><code class="xref py py-meth docutils literal"><span class="pre">on_invalidated()</span></code></a>, <a class="reference internal" href="source/progress_manager.html#progress_manager.base.BaseExtension.on_end" title="progress_manager.base.BaseExtension.on_end"><code class="xref py py-meth docutils literal"><span class="pre">on_end()</span></code></a>
+to suit your needs. In each of these methods you recieve a list of values
+corresponding to the requirements you passed in the
+<code class="xref py py-meth docutils literal"><span class="pre">__init__()</span></code> method. Note that
+<a class="reference internal" href="source/progress_manager.html#progress_manager.base.BaseExtension.on_validated" title="progress_manager.base.BaseExtension.on_validated"><code class="xref py py-meth docutils literal"><span class="pre">on_validated()</span></code></a> and <a class="reference internal" href="source/progress_manager.html#progress_manager.base.BaseExtension.on_invalidated" title="progress_manager.base.BaseExtension.on_invalidated"><code class="xref py py-meth docutils literal"><span class="pre">on_invalidated()</span></code></a>
+are called by the default implementation of <a class="reference internal" href="source/progress_manager.html#progress_manager.base.BaseExtension.on_update" title="progress_manager.base.BaseExtension.on_update"><code class="xref py py-meth docutils literal"><span class="pre">on_update()</span></code></a>.
+If you override <a class="reference internal" href="source/progress_manager.html#progress_manager.base.BaseExtension.on_update" title="progress_manager.base.BaseExtension.on_update"><code class="xref py py-meth docutils literal"><span class="pre">on_update()</span></code></a>, those methods will no
+longer be called unless you call them explicitly. In general, you should use
+<a class="reference internal" href="source/progress_manager.html#progress_manager.base.BaseExtension.on_validated" title="progress_manager.base.BaseExtension.on_validated"><code class="xref py py-meth docutils literal"><span class="pre">on_validated()</span></code></a> and <a class="reference internal" href="source/progress_manager.html#progress_manager.base.BaseExtension.on_invalidated" title="progress_manager.base.BaseExtension.on_invalidated"><code class="xref py py-meth docutils literal"><span class="pre">on_invalidated()</span></code></a>
+for most of the purposes.
 To set the string that is to be displayed by your extension, just call
-the <cite>set_value</cite> method from your extension</p>
+the <a class="reference internal" href="source/progress_manager.html#progress_manager.base.BaseExtension.set_value" title="progress_manager.base.BaseExtension.set_value"><code class="xref py py-meth docutils literal"><span class="pre">set_value()</span></code></a> method from your extension.</p>
 </div>
 <div class="section" id="writing-your-own-providers">
 <h3>Writing your own Providers<a class="headerlink" href="#writing-your-own-providers" title="Permalink to this headline">¶</a></h3>
@@ -187,13 +195,13 @@ the <cite>set_value</cite> method from your extension</p>
 built-in tags? You can also create Custom Providers to calculate values
 and specify a new tag for them that can be used by other extensions.</p>
 <p>Creating a provider is similar to creating an extension. But note that,
-instead of <cite>on_update</cite>, here we can override <cite>on_publish</cite>. Also the
-__init__ method does not take update_interval as a parameter, Instead
-it takes a parameter <cite>tag</cite> which takes a string. Rest of api is same.
-The tag should not collide with any built-in tag.
+instead of <code class="docutils literal"><span class="pre">on_update</span></code>, here we can override <a class="reference internal" href="source/progress_manager.html#progress_manager.base.BaseProvider.on_publish" title="progress_manager.base.BaseProvider.on_publish"><code class="xref py py-meth docutils literal"><span class="pre">on_publish()</span></code></a>.
+Also the <code class="xref py py-meth docutils literal"><span class="pre">__init__()</span></code> method does not take <code class="docutils literal"><span class="pre">update_interval</span></code>
+as a parameter, Instead it takes a parameter <code class="docutils literal"><span class="pre">tag</span></code> which takes a string.
+Rest of api is same. The tag should not collide with any built-in tag.
 Prior to using a provider you need to register it. To register,
-just call the <cite>register_provider</cite> method of the ProgressManager class
-and pass it an instance of your provider.</p>
+just call the <a class="reference internal" href="source/progress_manager.html#progress_manager.core.ProgressManager.register_provider" title="progress_manager.core.ProgressManager.register_provider"><code class="xref py py-meth docutils literal"><span class="pre">register_provider()</span></code></a> method of the
+<cite>ProgressManager</cite> class and pass it an instance of your provider.</p>
 </div>
 </div>
 </div>
