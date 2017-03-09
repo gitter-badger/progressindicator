@@ -36,6 +36,9 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="install.html" title="Installation"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">progressindicator 0.1.0 documentation</a> &#187;</li> 
@@ -55,7 +58,7 @@
 which we can show a functioning progress bar during a task.</p>
 <div class="section" id="usage-in-a-loop">
 <h3>Usage In a Loop<a class="headerlink" href="#usage-in-a-loop" title="Permalink to this headline">¶</a></h3>
-<p>You can use an <code class="xref py py-class docutils literal"><span class="pre">AdvancedProgressBar</span></code> instance named
+<p>You can use an <a class="reference internal" href="source/progressindicator.html#progressindicator.core.AdvancedProgressBar" title="progressindicator.core.AdvancedProgressBar"><code class="xref py py-class docutils literal"><span class="pre">AdvancedProgressBar</span></code></a> instance named
 <cite>bar</cite> to display a ProgressBar. Here we are publishing the percentage of
 the task completed to <cite>bar</cite>. Note that we need to call
 <code class="xref py py-meth docutils literal"><span class="pre">begin()</span></code> and
@@ -117,10 +120,10 @@ at appropriate times.</p>
 <div class="section" id="creating-a-custom-progressbar">
 <h2>Creating a Custom ProgressBar<a class="headerlink" href="#creating-a-custom-progressbar" title="Permalink to this headline">¶</a></h2>
 <p>The default PrgressBar is enough for most purposes. But if you need to
-customize the look of the ProgressBar, you can do so via <code class="xref py py-mod docutils literal"><span class="pre">extensions</span></code>.</p>
+customize the look of the ProgressBar, you can do so via <a class="reference internal" href="source/progressindicator.html#module-progressindicator.extensions" title="progressindicator.extensions"><code class="xref py py-mod docutils literal"><span class="pre">extensions</span></code></a>.</p>
 <div class="section" id="building-the-progressbar">
 <h3>Building The ProgressBar<a class="headerlink" href="#building-the-progressbar" title="Permalink to this headline">¶</a></h3>
-<p><code class="xref py py-class docutils literal"><span class="pre">ProgressIndicator</span></code> takes a parameter named components which is an
+<p><a class="reference internal" href="source/progressindicator.html#progressindicator.core.ProgressIndicator" title="progressindicator.core.ProgressIndicator"><code class="xref py py-class docutils literal"><span class="pre">ProgressIndicator</span></code></a> takes a parameter named components which is an
 iterable of string or extensions. Using this, you can customize the look
 of your progress bar as per your wish.</p>
 <div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">progressindicator.core</span> <span class="k">import</span> <span class="n">ProgressIndicator</span>
@@ -134,23 +137,23 @@ of your progress bar as per your wish.</p>
 <p>A large number of extensions are provided by default. More details on them
 can be found in the API Reference.</p>
 <ul class="simple">
-<li><code class="xref py py-class docutils literal"><span class="pre">Bar</span></code></li>
-<li><code class="xref py py-class docutils literal"><span class="pre">BouncingBar</span></code></li>
-<li><code class="xref py py-class docutils literal"><span class="pre">Ellipses</span></code></li>
-<li><code class="xref py py-class docutils literal"><span class="pre">Alternator</span></code></li>
-<li><code class="xref py py-class docutils literal"><span class="pre">Spinner</span></code></li>
-<li><code class="xref py py-class docutils literal"><span class="pre">Loader</span></code></li>
-<li><code class="xref py py-class docutils literal"><span class="pre">Timer</span></code></li>
-<li><code class="xref py py-class docutils literal"><span class="pre">ETA</span></code></li>
-<li><code class="xref py py-class docutils literal"><span class="pre">Rate</span></code></li>
-<li><code class="xref py py-class docutils literal"><span class="pre">Percentage</span></code></li>
+<li><a class="reference internal" href="source/progressindicator.html#progressindicator.extensions.Bar" title="progressindicator.extensions.Bar"><code class="xref py py-class docutils literal"><span class="pre">Bar</span></code></a></li>
+<li><a class="reference internal" href="source/progressindicator.html#progressindicator.extensions.BouncingBar" title="progressindicator.extensions.BouncingBar"><code class="xref py py-class docutils literal"><span class="pre">BouncingBar</span></code></a></li>
+<li><a class="reference internal" href="source/progressindicator.html#progressindicator.extensions.Ellipses" title="progressindicator.extensions.Ellipses"><code class="xref py py-class docutils literal"><span class="pre">Ellipses</span></code></a></li>
+<li><a class="reference internal" href="source/progressindicator.html#progressindicator.extensions.Alternator" title="progressindicator.extensions.Alternator"><code class="xref py py-class docutils literal"><span class="pre">Alternator</span></code></a></li>
+<li><a class="reference internal" href="source/progressindicator.html#progressindicator.extensions.Spinner" title="progressindicator.extensions.Spinner"><code class="xref py py-class docutils literal"><span class="pre">Spinner</span></code></a></li>
+<li><a class="reference internal" href="source/progressindicator.html#progressindicator.extensions.Loader" title="progressindicator.extensions.Loader"><code class="xref py py-class docutils literal"><span class="pre">Loader</span></code></a></li>
+<li><a class="reference internal" href="source/progressindicator.html#progressindicator.extensions.Timer" title="progressindicator.extensions.Timer"><code class="xref py py-class docutils literal"><span class="pre">Timer</span></code></a></li>
+<li><a class="reference internal" href="source/progressindicator.html#progressindicator.extensions.ETA" title="progressindicator.extensions.ETA"><code class="xref py py-class docutils literal"><span class="pre">ETA</span></code></a></li>
+<li><a class="reference internal" href="source/progressindicator.html#progressindicator.extensions.Rate" title="progressindicator.extensions.Rate"><code class="xref py py-class docutils literal"><span class="pre">Rate</span></code></a></li>
+<li><a class="reference internal" href="source/progressindicator.html#progressindicator.extensions.Percentage" title="progressindicator.extensions.Percentage"><code class="xref py py-class docutils literal"><span class="pre">Percentage</span></code></a></li>
 </ul>
 </div>
 <div class="section" id="writing-your-own-extensions">
 <h3>Writing your own Extensions<a class="headerlink" href="#writing-your-own-extensions" title="Permalink to this headline">¶</a></h3>
 <p>Although the extensions provided by default should be enough, but you can
 always create your own extensions by subclassing
-<code class="xref py py-class docutils literal"><span class="pre">BaseExtension</span></code>. More detail on this can be found
+<a class="reference internal" href="source/progressindicator.html#progressindicator.base.BaseExtension" title="progressindicator.base.BaseExtension"><code class="xref py py-class docutils literal"><span class="pre">BaseExtension</span></code></a>. More detail on this can be found
 in the API Reference.</p>
 <p>Every extension should call the <code class="xref py py-meth docutils literal"><span class="pre">__init__()</span></code> method
 of the <cite>BaseExtension</cite> class by passing a list of strings as
@@ -171,20 +174,20 @@ Following is the list of all supported tags.</p>
 <li>rate</li>
 </ul>
 <p>You can then override several event methods of
-<code class="xref py py-class docutils literal"><span class="pre">BaseExtension</span></code>, such as <code class="xref py py-meth docutils literal"><span class="pre">on_begin()</span></code>,
-<code class="xref py py-meth docutils literal"><span class="pre">on_update()</span></code>, <code class="xref py py-meth docutils literal"><span class="pre">on_validated()</span></code>,
-<code class="xref py py-meth docutils literal"><span class="pre">on_invalidated()</span></code>, <code class="xref py py-meth docutils literal"><span class="pre">on_end()</span></code>
+<a class="reference internal" href="source/progressindicator.html#progressindicator.base.BaseExtension" title="progressindicator.base.BaseExtension"><code class="xref py py-class docutils literal"><span class="pre">BaseExtension</span></code></a>, such as <a class="reference internal" href="source/progressindicator.html#progressindicator.base.BaseExtension.on_begin" title="progressindicator.base.BaseExtension.on_begin"><code class="xref py py-meth docutils literal"><span class="pre">on_begin()</span></code></a>,
+<a class="reference internal" href="source/progressindicator.html#progressindicator.base.BaseExtension.on_update" title="progressindicator.base.BaseExtension.on_update"><code class="xref py py-meth docutils literal"><span class="pre">on_update()</span></code></a>, <a class="reference internal" href="source/progressindicator.html#progressindicator.base.BaseExtension.on_validated" title="progressindicator.base.BaseExtension.on_validated"><code class="xref py py-meth docutils literal"><span class="pre">on_validated()</span></code></a>,
+<a class="reference internal" href="source/progressindicator.html#progressindicator.base.BaseExtension.on_invalidated" title="progressindicator.base.BaseExtension.on_invalidated"><code class="xref py py-meth docutils literal"><span class="pre">on_invalidated()</span></code></a>, <a class="reference internal" href="source/progressindicator.html#progressindicator.base.BaseExtension.on_end" title="progressindicator.base.BaseExtension.on_end"><code class="xref py py-meth docutils literal"><span class="pre">on_end()</span></code></a>
 to suit your needs. In each of these methods you recieve a list of values
 corresponding to the requirements you passed in the
 <code class="xref py py-meth docutils literal"><span class="pre">__init__()</span></code> method. Note that
-<code class="xref py py-meth docutils literal"><span class="pre">on_validated()</span></code> and <code class="xref py py-meth docutils literal"><span class="pre">on_invalidated()</span></code>
-are called by the default implementation of <code class="xref py py-meth docutils literal"><span class="pre">on_update()</span></code>.
-If you override <code class="xref py py-meth docutils literal"><span class="pre">on_update()</span></code>, those methods will no
+<a class="reference internal" href="source/progressindicator.html#progressindicator.base.BaseExtension.on_validated" title="progressindicator.base.BaseExtension.on_validated"><code class="xref py py-meth docutils literal"><span class="pre">on_validated()</span></code></a> and <a class="reference internal" href="source/progressindicator.html#progressindicator.base.BaseExtension.on_invalidated" title="progressindicator.base.BaseExtension.on_invalidated"><code class="xref py py-meth docutils literal"><span class="pre">on_invalidated()</span></code></a>
+are called by the default implementation of <a class="reference internal" href="source/progressindicator.html#progressindicator.base.BaseExtension.on_update" title="progressindicator.base.BaseExtension.on_update"><code class="xref py py-meth docutils literal"><span class="pre">on_update()</span></code></a>.
+If you override <a class="reference internal" href="source/progressindicator.html#progressindicator.base.BaseExtension.on_update" title="progressindicator.base.BaseExtension.on_update"><code class="xref py py-meth docutils literal"><span class="pre">on_update()</span></code></a>, those methods will no
 longer be called unless you call them explicitly. In general, you should use
-<code class="xref py py-meth docutils literal"><span class="pre">on_validated()</span></code> and <code class="xref py py-meth docutils literal"><span class="pre">on_invalidated()</span></code>
+<a class="reference internal" href="source/progressindicator.html#progressindicator.base.BaseExtension.on_validated" title="progressindicator.base.BaseExtension.on_validated"><code class="xref py py-meth docutils literal"><span class="pre">on_validated()</span></code></a> and <a class="reference internal" href="source/progressindicator.html#progressindicator.base.BaseExtension.on_invalidated" title="progressindicator.base.BaseExtension.on_invalidated"><code class="xref py py-meth docutils literal"><span class="pre">on_invalidated()</span></code></a>
 for most of the purposes.
 To set the string that is to be displayed by your extension, just call
-the <code class="xref py py-meth docutils literal"><span class="pre">set_value()</span></code> method from your extension.</p>
+the <a class="reference internal" href="source/progressindicator.html#progressindicator.base.BaseExtension.set_value" title="progressindicator.base.BaseExtension.set_value"><code class="xref py py-meth docutils literal"><span class="pre">set_value()</span></code></a> method from your extension.</p>
 </div>
 <div class="section" id="writing-your-own-providers">
 <h3>Writing your own Providers<a class="headerlink" href="#writing-your-own-providers" title="Permalink to this headline">¶</a></h3>
@@ -192,12 +195,12 @@ the <code class="xref py py-meth docutils literal"><span class="pre">set_value()
 built-in tags? You can also create Custom Providers to calculate values
 and specify a new tag for them that can be used by other extensions.</p>
 <p>Creating a provider is similar to creating an extension. But note that,
-instead of <code class="docutils literal"><span class="pre">on_update</span></code>, here we can override <code class="xref py py-meth docutils literal"><span class="pre">on_publish()</span></code>.
+instead of <code class="docutils literal"><span class="pre">on_update</span></code>, here we can override <a class="reference internal" href="source/progressindicator.html#progressindicator.base.BaseProvider.on_publish" title="progressindicator.base.BaseProvider.on_publish"><code class="xref py py-meth docutils literal"><span class="pre">on_publish()</span></code></a>.
 Also the <code class="xref py py-meth docutils literal"><span class="pre">__init__()</span></code> method does not take <code class="docutils literal"><span class="pre">update_interval</span></code>
 as a parameter, Instead it takes a parameter <code class="docutils literal"><span class="pre">tag</span></code> which takes a string.
 Rest of api is same. The tag should not collide with any built-in tag.
 Prior to using a provider you need to register it. To register,
-just call the <code class="xref py py-meth docutils literal"><span class="pre">register_provider()</span></code> method of the
+just call the <a class="reference internal" href="source/progressindicator.html#progressindicator.core.ProgressIndicator.register_provider" title="progressindicator.core.ProgressIndicator.register_provider"><code class="xref py py-meth docutils literal"><span class="pre">register_provider()</span></code></a> method of the
 <cite>ProgressIndicator</cite> class and pass it an instance of your provider.</p>
 </div>
 </div>
@@ -260,6 +263,9 @@ just call the <code class="xref py py-meth docutils literal"><span class="pre">r
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="install.html" title="Installation"
              >previous</a> |</li>

@@ -1,0 +1,714 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>progress_manager package &#8212; progressindicator 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">progressindicator 0.1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="progress-manager-package">
+<h1>progress_manager package<a class="headerlink" href="#progress-manager-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="progressindicator-base-module">
+<h2>progressindicator.base module<a class="headerlink" href="#progressindicator-base-module" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-progressindicator.base"></span><p>This module contains the BaseExtension class which Base class for all extensions.</p>
+<dl class="class">
+<dt id="progressindicator.base.BaseExtension">
+<em class="property">class </em><code class="descclassname">progressindicator.base.</code><code class="descname">BaseExtension</code><span class="sig-paren">(</span><em>requirements=[]</em>, <em>update_interval=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/base.html#BaseExtension"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.base.BaseExtension" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Base class for all extensions.</p>
+<p>All extensions must inherit from this class. This class provides various
+methods which can be overidden to achieve desired behaviour.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>requirements</strong> (<em>array_like</em>) &#8211; iterable of strings where each string should be a built-in tag or a tag
+provided by a registered custom provider.</li>
+<li><strong>update_interval</strong> (<em>float</em>) &#8211; Desired update interval for the extension.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>All extensions need to explicitly call __init__ of the BaseExtension with
+appropriate requirements. If an extension inherits from another extension,
+__init__ should be called like BaseExtension.__init__(self, requirements)</p>
+<dl class="method">
+<dt id="progressindicator.base.BaseExtension.get_requirements">
+<code class="descname">get_requirements</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/base.html#BaseExtension.get_requirements"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.base.BaseExtension.get_requirements" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the requirements of the extension.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of tags required by the extension.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">array_like</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="progressindicator.base.BaseExtension.set_value">
+<code class="descname">set_value</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/base.html#BaseExtension.set_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.base.BaseExtension.set_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method sets the content which is to be printed to console.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; Value to be set.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="progressindicator.base.BaseExtension.get_value">
+<code class="descname">get_value</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/base.html#BaseExtension.get_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.base.BaseExtension.get_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the current value to be printed to console.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">value set by <cite>set_value</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="progressindicator.base.BaseExtension.on_begin">
+<code class="descname">on_begin</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/base.html#BaseExtension.on_begin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.base.BaseExtension.on_begin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override this method to customize the initial look of the extension.</p>
+<p>By default, the appropriate after-validation method is called.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>array_like</em>) &#8211; Values of all keys specified in the requirements of the extension.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="progressindicator.base.BaseExtension.on_update">
+<code class="descname">on_update</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/base.html#BaseExtension.on_update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.base.BaseExtension.on_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override this method to set the look of the extension at each update.</p>
+<p>This method is called at each update. It is recommended to override the
+higher level functions <cite>on_validated</cite> and <cite>on_invalidated</cite> instead of
+this method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>array_like</em>) &#8211; Values of all keys specified in the requirements of the extension.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="progressindicator.base.BaseExtension.on_end">
+<code class="descname">on_end</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/base.html#BaseExtension.on_end"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.base.BaseExtension.on_end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override this method to customize the final look of the extension.</p>
+<p>By default, the appropriate after-validation method is called.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>array_like</em>) &#8211; Values of all keys specified in the requirements of the extension.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="progressindicator.base.BaseExtension.on_validated">
+<code class="descname">on_validated</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/base.html#BaseExtension.on_validated"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.base.BaseExtension.on_validated" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override this method to set the look of the extension at each update.</p>
+<p>This method is only called during an update if value of all tags
+required by the extension are valid.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>array_like</em>) &#8211; Values of all keys specified in the requirements of the extension.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="progressindicator.base.BaseExtension.on_invalidated">
+<code class="descname">on_invalidated</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/base.html#BaseExtension.on_invalidated"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.base.BaseExtension.on_invalidated" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override this method to set the look of the extension at each update.</p>
+<p>This method is only called during an update if value for atleast one
+tag required by the extension is invalid.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>array_like</em>) &#8211; Values of all keys specified in the requirements of the extension.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="progressindicator.base.BaseProvider">
+<em class="property">class </em><code class="descclassname">progressindicator.base.</code><code class="descname">BaseProvider</code><span class="sig-paren">(</span><em>tag</em>, <em>requirements=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/base.html#BaseProvider"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.base.BaseProvider" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="progressindicator.base.BaseProvider.get_requirements">
+<code class="descname">get_requirements</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/base.html#BaseProvider.get_requirements"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.base.BaseProvider.get_requirements" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the requirements of the extension.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">requirements of the extension.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">array_like</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="progressindicator.base.BaseProvider.get_tag">
+<code class="descname">get_tag</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/base.html#BaseProvider.get_tag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.base.BaseProvider.get_tag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the <cite>tag</cite> of the Provider.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>tag</cite> of the provider.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="progressindicator.base.BaseProvider.set_value">
+<code class="descname">set_value</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/base.html#BaseProvider.set_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.base.BaseProvider.set_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method sets the value of the tag provided by the provider.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; Value to be set.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="progressindicator.base.BaseProvider.get_value">
+<code class="descname">get_value</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/base.html#BaseProvider.get_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.base.BaseProvider.get_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the current value of the provider&#8217;s tag.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">value set by <cite>set_value</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="progressindicator.base.BaseProvider.on_begin">
+<code class="descname">on_begin</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/base.html#BaseProvider.on_begin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.base.BaseProvider.on_begin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override this method to set the initial value for the provider.</p>
+<p>By default, the appropriate after-validation method is called.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>array_like</em>) &#8211; Values of all keys specified in the requirements of the extension.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="progressindicator.base.BaseProvider.on_publish">
+<code class="descname">on_publish</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/base.html#BaseProvider.on_publish"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.base.BaseProvider.on_publish" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override this method to calculate the value for the provider at each
+publish.</p>
+<p>This method is called on every publish. It is recommended to override the
+higher level functions <cite>on_validated</cite> and <cite>on_invalidated</cite> instead of
+this method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>array_like</em>) &#8211; Values of all tags specified in the requirements of the extension.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="progressindicator.base.BaseProvider.on_end">
+<code class="descname">on_end</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/base.html#BaseProvider.on_end"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.base.BaseProvider.on_end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override this method to calculate the final value for the provider.</p>
+<p>By default, the appropriate after-validation method is called.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>array_like</em>) &#8211; Values of all tags specified in the requirements of the extension.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="progressindicator.base.BaseProvider.on_validated">
+<code class="descname">on_validated</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/base.html#BaseProvider.on_validated"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.base.BaseProvider.on_validated" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override this method to calculate the value for the provider at each
+publish.</p>
+<p>This method is only called during an update if value of all keys in
+requirements are valid.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>array_like</em>) &#8211; Values of all keys specified in the requirements of the extension.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="progressindicator.base.BaseProvider.on_invalidated">
+<code class="descname">on_invalidated</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/base.html#BaseProvider.on_invalidated"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.base.BaseProvider.on_invalidated" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override this method to calculate the value for the provider at each
+publish.</p>
+<p>This method is only called during an update if value for atleast one key
+in requirements is invalid.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>array_like</em>) &#8211; Values of all keys specified in the requirements of the extension.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="progressindicator-core-module">
+<h2>progressindicator.core module<a class="headerlink" href="#progressindicator-core-module" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-progressindicator.core"></span><dl class="class">
+<dt id="progressindicator.core.ProgressIndicator">
+<em class="property">class </em><code class="descclassname">progressindicator.core.</code><code class="descname">ProgressIndicator</code><span class="sig-paren">(</span><em>components</em>, <em>min_value=0</em>, <em>max_value=100</em>, <em>stream=&lt;_io.TextIOWrapper name='&lt;stderr&gt;' mode='w' encoding='UTF-8'&gt;</em>, <em>max_update_interval=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/core.html#ProgressIndicator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.core.ProgressIndicator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Utility Class to display Progress Bars in console.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>components</strong> (<em>array_like</em>) &#8211; pass</li>
+<li><strong>min_value</strong> (<em>float</em><em>, </em><em>optional</em>) &#8211; Minimum value of the progress. Default is 0.</li>
+<li><strong>max_value</strong> (<em>float</em><em>, </em><em>optional</em>) &#8211; Maximum value of the progress. Default is 100.</li>
+<li><strong>max_update_interval</strong> (<em>float</em>) &#8211; Maximum time interval between two updates of the Progress Indicator.
+Default is 0.50s.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="progressindicator.core.ProgressIndicator.clear_on_task_completion">
+<code class="descname">clear_on_task_completion</code><a class="headerlink" href="#progressindicator.core.ProgressIndicator.clear_on_task_completion" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>bool</em> &#8211; Whether Progress Bar is cleared on calling <cite>end</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="progressindicator.core.ProgressIndicator.begin">
+<code class="descname">begin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/core.html#ProgressIndicator.begin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.core.ProgressIndicator.begin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs initial tasks prior to printing progress bar.</p>
+<p>It is recommended to perform all customization to the ProgressIndicator
+instance before calling this method. This method should be called for
+initializing Progress Bar. If not called, first call to publish() will
+automatically call this method.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="progressindicator.core.ProgressIndicator.end">
+<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/core.html#ProgressIndicator.end"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.core.ProgressIndicator.end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs clean up tasks after printing Progress Bar.</p>
+<p>This method should always be called after task is complete. This
+method forces the progress Bar to show progress to 100 percent.
+After calling this method publish() can no longer be called. This
+method clears the Progress Bar from the console if
+clear_on_task_completion is True. The console should support
+printing carriage returns.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="progressindicator.core.ProgressIndicator.register_provider">
+<code class="descname">register_provider</code><span class="sig-paren">(</span><em>provider</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/core.html#ProgressIndicator.register_provider"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.core.ProgressIndicator.register_provider" title="Permalink to this definition">¶</a></dt>
+<dd><p>Any custom providers needed for an extension should be registered
+using this method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>provider</strong> (<a class="reference internal" href="#progressindicator.base.BaseProvider" title="progressindicator.base.BaseProvider"><em>BaseProvider</em></a>) &#8211; An instance of the Custom BaseProvider child class.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="progressindicator.core.ProgressIndicator.deregister_provider">
+<code class="descname">deregister_provider</code><span class="sig-paren">(</span><em>tag</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/core.html#ProgressIndicator.deregister_provider"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.core.ProgressIndicator.deregister_provider" title="Permalink to this definition">¶</a></dt>
+<dd><p>All providers can be deregistered using this method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tag</strong> (<em>str</em>) &#8211; Tag of the Provider you wish to remove.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For optimization purposes, You don&#8217;t need to deregister providers if
+they are not needed as Providers which are not required are never executed.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="progressindicator.core.ProgressIndicator.publish">
+<code class="descname">publish</code><span class="sig-paren">(</span><em>value=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/core.html#ProgressIndicator.publish"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.core.ProgressIndicator.publish" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the progress bar.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>float</em><em> or </em><em>int</em>) &#8211; The current progress in percentage. It should be between
+<cite>min_value</cite> and <cite>max_value</cite>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="progressindicator.core.ProgressIndicator.allow_to_print">
+<code class="descname">allow_to_print</code><span class="sig-paren">(</span><em>is_allowed_to_print: bool</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/core.html#ProgressIndicator.allow_to_print"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.core.ProgressIndicator.allow_to_print" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set whether ProgressIndicator instance is allowed to print to console.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>is_allowed_to_print</strong> &#8211; Whether ProgressIndicator instance has permission to print.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="progressindicator.core.SimpleProgressBar">
+<em class="property">class </em><code class="descclassname">progressindicator.core.</code><code class="descname">SimpleProgressBar</code><a class="reference internal" href="../_modules/progressindicator/core.html#SimpleProgressBar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.core.SimpleProgressBar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#progressindicator.core.ProgressIndicator" title="progressindicator.core.ProgressIndicator"><code class="xref py py-class docutils literal"><span class="pre">progressindicator.core.ProgressIndicator</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="progressindicator.core.AdvancedProgressBar">
+<em class="property">class </em><code class="descclassname">progressindicator.core.</code><code class="descname">AdvancedProgressBar</code><a class="reference internal" href="../_modules/progressindicator/core.html#AdvancedProgressBar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.core.AdvancedProgressBar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#progressindicator.core.ProgressIndicator" title="progressindicator.core.ProgressIndicator"><code class="xref py py-class docutils literal"><span class="pre">progressindicator.core.ProgressIndicator</span></code></a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="progressindicator.core.display_progress">
+<code class="descclassname">progressindicator.core.</code><code class="descname">display_progress</code><span class="sig-paren">(</span><em>bar</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/core.html#display_progress"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.core.display_progress" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="progressindicator.core.main">
+<code class="descclassname">progressindicator.core.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/core.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.core.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="progressindicator-extensions-module">
+<h2>progressindicator.extensions module<a class="headerlink" href="#progressindicator-extensions-module" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-progressindicator.extensions"></span><p>This module contains the Built-in Extensions for ProgressIndicator class.</p>
+<dl class="class">
+<dt id="progressindicator.extensions.Bar">
+<em class="property">class </em><code class="descclassname">progressindicator.extensions.</code><code class="descname">Bar</code><span class="sig-paren">(</span><em>length=60</em>, <em>begin_entity='['</em>, <em>filler_entity='#'</em>, <em>empty_entity=' '</em>, <em>end_entity=']'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/extensions.html#Bar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.extensions.Bar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extension to display Progress bar in console.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>length</strong> (<em>int</em><em>, </em><em>optional</em>) &#8211; Number of entities in the Bar (Default 60)</li>
+<li><strong>begin_entity</strong> (<em>str</em><em>, </em><em>optional</em>) &#8211; Symbol to indicate start of the Bar (Default &#8216;[&#8216;)</li>
+<li><strong>filler_entity</strong> (<em>str</em><em>, </em><em>optional</em>) &#8211; Symbol which is used to show completed part of the Bar (Default &#8216;#&#8217;)</li>
+<li><strong>empty_entity</strong> (<em>str</em><em>, </em><em>optional</em>) &#8211; Symbol which is used to show incomplete part of the Bar (Default &#8216; &#8216;)</li>
+<li><strong>end_entity</strong> (<em>str</em><em>, </em><em>optional</em>) &#8211; Symbol to indicate end of the Bar (Default &#8216;]&#8217;)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="progressindicator.extensions.BouncingBar">
+<em class="property">class </em><code class="descclassname">progressindicator.extensions.</code><code class="descname">BouncingBar</code><span class="sig-paren">(</span><em>length=60</em>, <em>begin_entity='['</em>, <em>filler_entity='*'</em>, <em>empty_entity=' '</em>, <em>end_entity=']'</em>, <em>velocity=200</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/extensions.html#BouncingBar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.extensions.BouncingBar" title="Permalink to this definition">¶</a></dt>
+<dd><p>This Extension displays a visual cue for a task with indeterminate
+progress.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>length</strong> (<em>int</em><em>, </em><em>optional</em>) &#8211; Number of entities in the Bar (Default 60)</li>
+<li><strong>begin_entity</strong> (<em>str</em><em>, </em><em>optional</em>) &#8211; Symbol to indicate start of the Bar (Default &#8216;[&#8216;)</li>
+<li><strong>filler_entity</strong> (<em>str</em><em>, </em><em>optional</em>) &#8211; Symbol which is used to show completed part of the Bar (Default &#8216;*&#8217;)</li>
+<li><strong>empty_entity</strong> (<em>str</em><em>, </em><em>optional</em>) &#8211; Symbol which is used to show incomplete part of the Bar (Default &#8216; &#8216;)</li>
+<li><strong>end_entity</strong> (<em>str</em><em>, </em><em>optional</em>) &#8211; Symbol to indicate end of the Bar (Default &#8216;]&#8217;)</li>
+<li><strong>velocity</strong> (<em>int</em><em>, </em><em>optional</em>) &#8211; Speed of the filler (Default 200)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="progressindicator.extensions.Ellipses">
+<em class="property">class </em><code class="descclassname">progressindicator.extensions.</code><code class="descname">Ellipses</code><a class="reference internal" href="../_modules/progressindicator/extensions.html#Ellipses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.extensions.Ellipses" title="Permalink to this definition">¶</a></dt>
+<dd><p>This Extension displays a visual cue for a task with indeterminate
+progress.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="progressindicator.extensions.Alternator">
+<em class="property">class </em><code class="descclassname">progressindicator.extensions.</code><code class="descname">Alternator</code><span class="sig-paren">(</span><em>char_iter</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/extensions.html#Alternator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.extensions.Alternator" title="Permalink to this definition">¶</a></dt>
+<dd><p>This Extension displays items from a List in a sequential order
+in a loop after every a fixed time interval.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>char_iter</strong> (<em>iterable of str</em>) &#8211; The set of string through which the extension should loop.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="progressindicator.extensions.Spinner">
+<em class="property">class </em><code class="descclassname">progressindicator.extensions.</code><code class="descname">Spinner</code><a class="reference internal" href="../_modules/progressindicator/extensions.html#Spinner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.extensions.Spinner" title="Permalink to this definition">¶</a></dt>
+<dd><p>This Extension displays a visual cue for a task with indeterminate
+progress. It displays a rotating marker to indicate progress of a task.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="progressindicator.extensions.Loader">
+<em class="property">class </em><code class="descclassname">progressindicator.extensions.</code><code class="descname">Loader</code><span class="sig-paren">(</span><em>char='.'</em>, <em>n=3</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/extensions.html#Loader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.extensions.Loader" title="Permalink to this definition">¶</a></dt>
+<dd><p>This Extension displays a visual cue for a task with indeterminate
+progress.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>char</strong> (<em>str</em>) &#8211; The character which is to be repeated.</li>
+<li><strong>n</strong> (<em>int</em>) &#8211; The maximum number character which should be displayed.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="progressindicator.extensions.Timer">
+<em class="property">class </em><code class="descclassname">progressindicator.extensions.</code><code class="descname">Timer</code><a class="reference internal" href="../_modules/progressindicator/extensions.html#Timer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.extensions.Timer" title="Permalink to this definition">¶</a></dt>
+<dd><p>This Extension provides total time since the task was started.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="progressindicator.extensions.ETA">
+<em class="property">class </em><code class="descclassname">progressindicator.extensions.</code><code class="descname">ETA</code><a class="reference internal" href="../_modules/progressindicator/extensions.html#ETA"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.extensions.ETA" title="Permalink to this definition">¶</a></dt>
+<dd><p>This Extension displays the expected time left for the task to be
+completed.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="progressindicator.extensions.ETANew">
+<em class="property">class </em><code class="descclassname">progressindicator.extensions.</code><code class="descname">ETANew</code><a class="reference internal" href="../_modules/progressindicator/extensions.html#ETANew"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.extensions.ETANew" title="Permalink to this definition">¶</a></dt>
+<dd><p>This Extension displays an alternate expected time left for the task
+to be completed.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="progressindicator.extensions.Rate">
+<em class="property">class </em><code class="descclassname">progressindicator.extensions.</code><code class="descname">Rate</code><a class="reference internal" href="../_modules/progressindicator/extensions.html#Rate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.extensions.Rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>This Extension displays the rate at which calls to <cite>publish</cite> are made.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="progressindicator.extensions.Percentage">
+<em class="property">class </em><code class="descclassname">progressindicator.extensions.</code><code class="descname">Percentage</code><a class="reference internal" href="../_modules/progressindicator/extensions.html#Percentage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.extensions.Percentage" title="Permalink to this definition">¶</a></dt>
+<dd><p>This Extension displays percentage of the task completed.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="progressindicator-providers-module">
+<h2>progressindicator.providers module<a class="headerlink" href="#progressindicator-providers-module" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-progressindicator.providers"></span><dl class="class">
+<dt id="progressindicator.providers.ETAProvider">
+<em class="property">class </em><code class="descclassname">progressindicator.providers.</code><code class="descname">ETAProvider</code><a class="reference internal" href="../_modules/progressindicator/providers.html#ETAProvider"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.providers.ETAProvider" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default Provider for an estimate of the time remaining for the
+completion of the task underway. The tag for this provider is <cite>eta</cite>.
+This provider is used by the built-in <cite>ETA</cite> extension.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="progressindicator.providers.ETANewProvider">
+<em class="property">class </em><code class="descclassname">progressindicator.providers.</code><code class="descname">ETANewProvider</code><a class="reference internal" href="../_modules/progressindicator/providers.html#ETANewProvider"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.providers.ETANewProvider" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default Provider for an alternate estimate of the time remaining for the
+completion of the task underway. The tag for this provider is <cite>eta_new</cite>.
+This provider is used by the built-in <cite>ETANew</cite> extension.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="progressindicator.providers.RateProvider">
+<em class="property">class </em><code class="descclassname">progressindicator.providers.</code><code class="descname">RateProvider</code><a class="reference internal" href="../_modules/progressindicator/providers.html#RateProvider"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.providers.RateProvider" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default Provider for the rate at which calls to <cite>publish</cite> are made.
+The tag for this provider is <cite>rate</cite>. This provider is used by the
+built-in <cite>Rate</cite> extension.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-progressindicator">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-progressindicator" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">progress_manager package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#progressindicator-base-module">progressindicator.base module</a></li>
+<li><a class="reference internal" href="#progressindicator-core-module">progressindicator.core module</a></li>
+<li><a class="reference internal" href="#progressindicator-extensions-module">progressindicator.extensions module</a></li>
+<li><a class="reference internal" href="#progressindicator-providers-module">progressindicator.providers module</a></li>
+<li><a class="reference internal" href="#module-progressindicator">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/source/progressindicator.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">progressindicator 0.1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Priyam Singh.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+    </div>
+  </body>
+</html>
