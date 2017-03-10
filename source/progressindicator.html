@@ -51,9 +51,9 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="progressindicator-base-module">
-<h2>progressindicator.base module<a class="headerlink" href="#progressindicator-base-module" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-progressindicator.base"></span><p>This module contains the BaseExtension and BaseProvider class.</p>
+<div class="section" id="module-progressindicator.base">
+<span id="progressindicator-base-module"></span><h2>progressindicator.base module<a class="headerlink" href="#module-progressindicator.base" title="Permalink to this headline">¶</a></h2>
+<p>This module contains the BaseExtension and BaseProvider class.</p>
 <dl class="class">
 <dt id="progressindicator.base.BaseExtension">
 <em class="property">class </em><code class="descclassname">progressindicator.base.</code><code class="descname">BaseExtension</code><span class="sig-paren">(</span><em>requirements=[]</em>, <em>update_interval=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/base.html#BaseExtension"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.base.BaseExtension" title="Permalink to this definition">¶</a></dt>
@@ -356,9 +356,9 @@ in requirements is invalid.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="progressindicator-core-module">
-<h2>progressindicator.core module<a class="headerlink" href="#progressindicator-core-module" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-progressindicator.core"></span><dl class="class">
+<div class="section" id="module-progressindicator.core">
+<span id="progressindicator-core-module"></span><h2>progressindicator.core module<a class="headerlink" href="#module-progressindicator.core" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
 <dt id="progressindicator.core.ProgressIndicator">
 <em class="property">class </em><code class="descclassname">progressindicator.core.</code><code class="descname">ProgressIndicator</code><span class="sig-paren">(</span><em>components</em>, <em>min_value=0</em>, <em>max_value=100</em>, <em>stream=&lt;_io.TextIOWrapper name='&lt;stderr&gt;' mode='w' encoding='UTF-8'&gt;</em>, <em>max_update_interval=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/core.html#ProgressIndicator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.core.ProgressIndicator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
@@ -524,9 +524,9 @@ they are not needed as Providers which are not required are never executed.</p>
 <dd></dd></dl>
 
 </div>
-<div class="section" id="progressindicator-extensions-module">
-<h2>progressindicator.extensions module<a class="headerlink" href="#progressindicator-extensions-module" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-progressindicator.extensions"></span><p>This module contains the Built-in Extensions for ProgressIndicator class.</p>
+<div class="section" id="module-progressindicator.extensions">
+<span id="progressindicator-extensions-module"></span><h2>progressindicator.extensions module<a class="headerlink" href="#module-progressindicator.extensions" title="Permalink to this headline">¶</a></h2>
+<p>This module contains the Built-in Extensions for ProgressIndicator class.</p>
 <dl class="class">
 <dt id="progressindicator.extensions.Bar">
 <em class="property">class </em><code class="descclassname">progressindicator.extensions.</code><code class="descname">Bar</code><span class="sig-paren">(</span><em>length=60</em>, <em>begin_entity='['</em>, <em>filler_entity='#'</em>, <em>empty_entity=' '</em>, <em>end_entity=']'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/extensions.html#Bar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.extensions.Bar" title="Permalink to this definition">¶</a></dt>
@@ -652,9 +652,9 @@ to be completed.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="progressindicator-providers-module">
-<h2>progressindicator.providers module<a class="headerlink" href="#progressindicator-providers-module" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-progressindicator.providers"></span><dl class="class">
+<div class="section" id="module-progressindicator.providers">
+<span id="progressindicator-providers-module"></span><h2>progressindicator.providers module<a class="headerlink" href="#module-progressindicator.providers" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
 <dt id="progressindicator.providers.ETAProvider">
 <em class="property">class </em><code class="descclassname">progressindicator.providers.</code><code class="descname">ETAProvider</code><a class="reference internal" href="../_modules/progressindicator/providers.html#ETAProvider"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.providers.ETAProvider" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default Provider for an estimate of the time remaining for the
@@ -679,6 +679,95 @@ built-in <cite>Rate</cite> extension.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-progressindicator.tags">
+<span id="progressindicator-tags-module"></span><h2>progressindicator.tags module<a class="headerlink" href="#module-progressindicator.tags" title="Permalink to this headline">¶</a></h2>
+<p>This module contains all the built-in tags for progressindicator package.</p>
+<dl class="data">
+<dt id="progressindicator.tags.TAG_VALUE">
+<code class="descclassname">progressindicator.tags.</code><code class="descname">TAG_VALUE</code><a class="headerlink" href="#progressindicator.tags.TAG_VALUE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Refers to value passed via publish</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="progressindicator.tags.TAG_MIN_VALUE">
+<code class="descclassname">progressindicator.tags.</code><code class="descname">TAG_MIN_VALUE</code><a class="headerlink" href="#progressindicator.tags.TAG_MIN_VALUE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Refers to max_value attribute of the Progress bar</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="progressindicator.tags.TAG_MAX_VALUE">
+<code class="descclassname">progressindicator.tags.</code><code class="descname">TAG_MAX_VALUE</code><a class="headerlink" href="#progressindicator.tags.TAG_MAX_VALUE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Refers to min_value attribute of the Progress bar</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="progressindicator.tags.TAG_BEGIN_TIME">
+<code class="descclassname">progressindicator.tags.</code><code class="descname">TAG_BEGIN_TIME</code><a class="headerlink" href="#progressindicator.tags.TAG_BEGIN_TIME" title="Permalink to this definition">¶</a></dt>
+<dd><p>Refers to the time at which begin was called</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="progressindicator.tags.TAG_END_TIME">
+<code class="descclassname">progressindicator.tags.</code><code class="descname">TAG_END_TIME</code><a class="headerlink" href="#progressindicator.tags.TAG_END_TIME" title="Permalink to this definition">¶</a></dt>
+<dd><p>Refers to the time at which end was called</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="progressindicator.tags.TAG_ITERATIONS">
+<code class="descclassname">progressindicator.tags.</code><code class="descname">TAG_ITERATIONS</code><a class="headerlink" href="#progressindicator.tags.TAG_ITERATIONS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Refers to the number of calls that have been made to publish</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="progressindicator.tags.TAG_PERCENTAGE">
+<code class="descclassname">progressindicator.tags.</code><code class="descname">TAG_PERCENTAGE</code><a class="headerlink" href="#progressindicator.tags.TAG_PERCENTAGE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Refers to how much of the task has been completed in percentage</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="progressindicator.tags.TAG_TIME_SINCE_BEGIN">
+<code class="descclassname">progressindicator.tags.</code><code class="descname">TAG_TIME_SINCE_BEGIN</code><a class="headerlink" href="#progressindicator.tags.TAG_TIME_SINCE_BEGIN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Refers to the time(sec) since begin was called</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="progressindicator.tags.TAG_DELTATIME">
+<code class="descclassname">progressindicator.tags.</code><code class="descname">TAG_DELTATIME</code><a class="headerlink" href="#progressindicator.tags.TAG_DELTATIME" title="Permalink to this definition">¶</a></dt>
+<dd><p>Refers to the time(sec) since publish was called</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="progressindicator.tags.TAG_LAST_UPDATED_AT">
+<code class="descclassname">progressindicator.tags.</code><code class="descname">TAG_LAST_UPDATED_AT</code><a class="headerlink" href="#progressindicator.tags.TAG_LAST_UPDATED_AT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Refers to the time at which Progress bar was last updated on screen.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="progressindicator.tags.TAG_TIME_SINCE_UPDATE">
+<code class="descclassname">progressindicator.tags.</code><code class="descname">TAG_TIME_SINCE_UPDATE</code><a class="headerlink" href="#progressindicator.tags.TAG_TIME_SINCE_UPDATE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Refers to the time(sec) since the Progress bar was last updated on screen.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="progressindicator.tags.TAG_ETA">
+<code class="descclassname">progressindicator.tags.</code><code class="descname">TAG_ETA</code><a class="headerlink" href="#progressindicator.tags.TAG_ETA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Refers to the expected time(s) the task would need to complete</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="progressindicator.tags.TAG_ETA_NEW">
+<code class="descclassname">progressindicator.tags.</code><code class="descname">TAG_ETA_NEW</code><a class="headerlink" href="#progressindicator.tags.TAG_ETA_NEW" title="Permalink to this definition">¶</a></dt>
+<dd><p>Refers to an alternate implementation of expected time(s)
+the task would need to complete</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="progressindicator.tags.TAG_RATE">
+<code class="descclassname">progressindicator.tags.</code><code class="descname">TAG_RATE</code><a class="headerlink" href="#progressindicator.tags.TAG_RATE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Refers to current rate of calls to publish</p>
+</dd></dl>
+
+</div>
 <div class="section" id="module-progressindicator">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-progressindicator" title="Permalink to this headline">¶</a></h2>
 </div>
@@ -694,10 +783,11 @@ built-in <cite>Rate</cite> extension.</p>
   <ul>
 <li><a class="reference internal" href="#">progressindicator package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#progressindicator-base-module">progressindicator.base module</a></li>
-<li><a class="reference internal" href="#progressindicator-core-module">progressindicator.core module</a></li>
-<li><a class="reference internal" href="#progressindicator-extensions-module">progressindicator.extensions module</a></li>
-<li><a class="reference internal" href="#progressindicator-providers-module">progressindicator.providers module</a></li>
+<li><a class="reference internal" href="#module-progressindicator.base">progressindicator.base module</a></li>
+<li><a class="reference internal" href="#module-progressindicator.core">progressindicator.core module</a></li>
+<li><a class="reference internal" href="#module-progressindicator.extensions">progressindicator.extensions module</a></li>
+<li><a class="reference internal" href="#module-progressindicator.providers">progressindicator.providers module</a></li>
+<li><a class="reference internal" href="#module-progressindicator.tags">progressindicator.tags module</a></li>
 <li><a class="reference internal" href="#module-progressindicator">Module contents</a></li>
 </ul>
 </li>

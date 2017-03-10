@@ -156,22 +156,24 @@ always create your own extensions by subclassing
 <a class="reference internal" href="source/progressindicator.html#progressindicator.base.BaseExtension" title="progressindicator.base.BaseExtension"><code class="xref py py-class docutils literal"><span class="pre">BaseExtension</span></code></a>. More detail on this can be found
 in the API Reference.</p>
 <p>Every extension should call the <code class="xref py py-meth docutils literal"><span class="pre">__init__()</span></code> method
-of the <cite>BaseExtension</cite> class by passing a list of strings as
-<code class="docutils literal"><span class="pre">requirements</span></code>. The strings which can be passed are known as tags.
-Following is the list of all supported tags.</p>
+of the <cite>BaseExtension</cite> class by passing a list of <code class="docutils literal"><span class="pre">tags</span></code> as
+<code class="docutils literal"><span class="pre">requirements</span></code>. These tags are basically a string.
+Following is the list of all built-in tags.</p>
 <ul class="simple">
-<li>value</li>
-<li>max_value</li>
-<li>min_value</li>
-<li>begin_time</li>
-<li>end_time</li>
-<li>iterations</li>
-<li>percentage</li>
-<li>time_since_begin</li>
-<li>time_since_update</li>
-<li>deltatime</li>
-<li>eta</li>
-<li>rate</li>
+<li><a class="reference internal" href="source/progressindicator.html#progressindicator.tags.TAG_VALUE" title="progressindicator.tags.TAG_VALUE"><code class="xref py py-data docutils literal"><span class="pre">TAG_VALUE</span></code></a></li>
+<li><a class="reference internal" href="source/progressindicator.html#progressindicator.tags.TAG_MIN_VALUE" title="progressindicator.tags.TAG_MIN_VALUE"><code class="xref py py-data docutils literal"><span class="pre">TAG_MIN_VALUE</span></code></a></li>
+<li><a class="reference internal" href="source/progressindicator.html#progressindicator.tags.TAG_MAX_VALUE" title="progressindicator.tags.TAG_MAX_VALUE"><code class="xref py py-data docutils literal"><span class="pre">TAG_MAX_VALUE</span></code></a></li>
+<li><a class="reference internal" href="source/progressindicator.html#progressindicator.tags.TAG_BEGIN_TIME" title="progressindicator.tags.TAG_BEGIN_TIME"><code class="xref py py-data docutils literal"><span class="pre">TAG_BEGIN_TIME</span></code></a></li>
+<li><a class="reference internal" href="source/progressindicator.html#progressindicator.tags.TAG_END_TIME" title="progressindicator.tags.TAG_END_TIME"><code class="xref py py-data docutils literal"><span class="pre">TAG_END_TIME</span></code></a></li>
+<li><a class="reference internal" href="source/progressindicator.html#progressindicator.tags.TAG_ITERATIONS" title="progressindicator.tags.TAG_ITERATIONS"><code class="xref py py-data docutils literal"><span class="pre">TAG_ITERATIONS</span></code></a></li>
+<li><a class="reference internal" href="source/progressindicator.html#progressindicator.tags.TAG_PERCENTAGE" title="progressindicator.tags.TAG_PERCENTAGE"><code class="xref py py-data docutils literal"><span class="pre">TAG_PERCENTAGE</span></code></a></li>
+<li><a class="reference internal" href="source/progressindicator.html#progressindicator.tags.TAG_TIME_SINCE_BEGIN" title="progressindicator.tags.TAG_TIME_SINCE_BEGIN"><code class="xref py py-data docutils literal"><span class="pre">TAG_TIME_SINCE_BEGIN</span></code></a></li>
+<li><a class="reference internal" href="source/progressindicator.html#progressindicator.tags.TAG_DELTATIME" title="progressindicator.tags.TAG_DELTATIME"><code class="xref py py-data docutils literal"><span class="pre">TAG_DELTATIME</span></code></a></li>
+<li><a class="reference internal" href="source/progressindicator.html#progressindicator.tags.TAG_LAST_UPDATED_AT" title="progressindicator.tags.TAG_LAST_UPDATED_AT"><code class="xref py py-data docutils literal"><span class="pre">TAG_LAST_UPDATED_AT</span></code></a></li>
+<li><a class="reference internal" href="source/progressindicator.html#progressindicator.tags.TAG_TIME_SINCE_UPDATE" title="progressindicator.tags.TAG_TIME_SINCE_UPDATE"><code class="xref py py-data docutils literal"><span class="pre">TAG_TIME_SINCE_UPDATE</span></code></a></li>
+<li><a class="reference internal" href="source/progressindicator.html#progressindicator.tags.TAG_ETA" title="progressindicator.tags.TAG_ETA"><code class="xref py py-data docutils literal"><span class="pre">TAG_ETA</span></code></a></li>
+<li><a class="reference internal" href="source/progressindicator.html#progressindicator.tags.TAG_ETA_NEW" title="progressindicator.tags.TAG_ETA_NEW"><code class="xref py py-data docutils literal"><span class="pre">TAG_ETA_NEW</span></code></a></li>
+<li><a class="reference internal" href="source/progressindicator.html#progressindicator.tags.TAG_RATE" title="progressindicator.tags.TAG_RATE"><code class="xref py py-data docutils literal"><span class="pre">TAG_RATE</span></code></a></li>
 </ul>
 <p>You can then override several event methods of
 <a class="reference internal" href="source/progressindicator.html#progressindicator.base.BaseExtension" title="progressindicator.base.BaseExtension"><code class="xref py py-class docutils literal"><span class="pre">BaseExtension</span></code></a>, such as <a class="reference internal" href="source/progressindicator.html#progressindicator.base.BaseExtension.on_begin" title="progressindicator.base.BaseExtension.on_begin"><code class="xref py py-meth docutils literal"><span class="pre">on_begin()</span></code></a>,
@@ -188,6 +190,27 @@ longer be called unless you call them explicitly. In general, you should use
 for most of the purposes.
 To set the string that is to be displayed by your extension, just call
 the <a class="reference internal" href="source/progressindicator.html#progressindicator.base.BaseExtension.set_value" title="progressindicator.base.BaseExtension.set_value"><code class="xref py py-meth docutils literal"><span class="pre">set_value()</span></code></a> method from your extension.</p>
+<p>Let&#8217;s write our own extension which prints nice messages to the screen
+depending on the percentage of the task completed.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyExtension</span><span class="p">(</span><span class="n">BaseExtension</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BaseExtension</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">requirements</span><span class="o">=</span><span class="p">[</span><span class="n">TAG_PERCENTAGE</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">on_begin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="s2">&quot;Task has begun&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">on_validated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">50</span> <span class="ow">and</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">90</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="s2">&quot;Task is half completed&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">90</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="s2">&quot;Task is almost completed&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">on_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="s2">&quot;Task is finished&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As you can see how easy it is to create your own extension to customize
+the look of the Progress indicator according to your needs.</p>
 </div>
 <div class="section" id="writing-your-own-providers">
 <h3>Writing your own Providers<a class="headerlink" href="#writing-your-own-providers" title="Permalink to this headline">¶</a></h3>
