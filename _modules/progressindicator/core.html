@@ -50,10 +50,10 @@
   <h1>Source code for progressindicator.core</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">from</span> <span class="nn">progressindicator.base</span> <span class="k">import</span> <span class="n">BaseExtension</span><span class="p">,</span> <span class="n">BaseProvider</span>
+<span class="kn">from</span> <span class="nn">progressindicator.tags</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">progressindicator.providers</span> <span class="k">import</span> <span class="o">*</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">setcheckinterval</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-
 
 <div class="viewcode-block" id="ProgressIndicator"><a class="viewcode-back" href="../../source/progressindicator.html#progressindicator.core.ProgressIndicator">[docs]</a><span class="k">class</span> <span class="nc">ProgressIndicator</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Utility Class to display Progress Bars in console.</span>
@@ -77,6 +77,21 @@
 <span class="sd">    ----------</span>
 <span class="sd">    clear_on_task_completion : bool</span>
 <span class="sd">        Whether Progress Bar is cleared on calling `end`.</span>
+<span class="sd">        </span>
+<span class="sd">    min_value : int, float</span>
+<span class="sd">        Minimum value of the progress.</span>
+<span class="sd">        </span>
+<span class="sd">    max_value : int, float</span>
+<span class="sd">        Maximum value of the progress</span>
+
+<span class="sd">    max_update_interval : float</span>
+<span class="sd">        Maximum interval in seconds between succesive updates</span>
+
+<span class="sd">    seperator : str</span>
+<span class="sd">        String used to join output of components.(Default &#39; &#39;)</span>
+
+<span class="sd">    components : list</span>
+<span class="sd">        List of components used to build the progress bar.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">components</span><span class="p">,</span> <span class="n">min_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
@@ -86,19 +101,21 @@
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;&#39;components&#39; must be iterable&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_allowed_to_print</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_allowed_to_publish</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">clear_on_task_completion</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">seperator</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span>
         <span class="k">if</span> <span class="n">min_value</span> <span class="o">&gt;</span> <span class="n">max_value</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;min_value should be less than max_value&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_printed_char_num</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_registered_providers</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_loaded_providers</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">seperator</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">min_value</span> <span class="o">=</span> <span class="n">min_value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_value</span> <span class="o">=</span> <span class="n">max_value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stream</span> <span class="o">=</span> <span class="n">stream</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_update_interval</span> <span class="o">=</span> <span class="n">max_update_interval</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_printed_char_num</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_on_task_completion</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">components</span> <span class="o">=</span> <span class="n">components</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_registered_providers</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_loaded_providers</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        
         <span class="bp">self</span><span class="o">.</span><span class="n">_register_default_providers</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_register_default_providers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -135,15 +152,17 @@
 
         <span class="c1">#self._load_provider(&#39;begin_time&#39;)</span>
         <span class="c1">#self._load_provider(&#39;end_time&#39;)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="s1">&#39;max_value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="s1">&#39;min_value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="s1">&#39;begin_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="s1">&#39;end_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="s1">&#39;iterations&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="s1">&#39;percentage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="s1">&#39;time_since_begin&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="s1">&#39;deltatime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="n">TAG_VALUE</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="n">TAG_MAX_VALUE</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="n">TAG_MIN_VALUE</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="n">TAG_BEGIN_TIME</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="n">TAG_END_TIME</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="n">TAG_ITERATIONS</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="n">TAG_PERCENTAGE</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="n">TAG_TIME_SINCE_BEGIN</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="n">TAG_DELTATIME</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="n">TAG_LAST_UPDATED_AT</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="n">TAG_TIME_SINCE_UPDATE</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_range</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_value</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_value</span>
         
@@ -177,12 +196,12 @@
 <span class="sd">        clear_on_task_completion is True. The console should support</span>
 <span class="sd">        printing carriage returns.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="s1">&#39;max_value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="s1">&#39;min_value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="s1">&#39;end_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="s1">&#39;percentage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="s1">&#39;time_since_begin&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="s1">&#39;begin_time&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="n">TAG_VALUE</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="n">TAG_MAX_VALUE</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="n">TAG_MIN_VALUE</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="n">TAG_END_TIME</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="n">TAG_PERCENTAGE</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="n">TAG_TIME_SINCE_BEGIN</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="n">TAG_BEGIN_TIME</span><span class="p">]</span>
         
         <span class="c1">#self._update_stats(&#39;end&#39;)</span>
         <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ordered_providers_tags</span><span class="p">:</span>
@@ -208,7 +227,7 @@
     <span class="k">def</span> <span class="nf">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">value</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">)</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;begin_time&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">TAG_BEGIN_TIME</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">begin</span><span class="p">()</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
@@ -242,18 +261,18 @@
             <span class="nb">print</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_time_since_last_update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="s1">&#39;time_since_begin&#39;</span><span class="p">]</span>
-                <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stats_at_last_update</span><span class="p">[</span><span class="s1">&#39;time_since_begin&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="n">TAG_TIME_SINCE_BEGIN</span><span class="p">]</span>
+                <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stats_at_last_update</span><span class="p">[</span><span class="n">TAG_TIME_SINCE_BEGIN</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">_is_update_required</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span><span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 
         <span class="n">stats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span>
-        <span class="n">time_since_update</span> <span class="o">=</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;time_since_update&#39;</span><span class="p">]</span>
+        <span class="n">time_since_update</span> <span class="o">=</span> <span class="n">stats</span><span class="p">[</span><span class="n">TAG_TIME_SINCE_UPDATE</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">time_since_update</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_update_interval</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
         <span class="k">if</span> <span class="n">time_since_update</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_interval</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="k">if</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="n">value</span> <span class="o">-</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_value</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_value</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">:</span>
+                <span class="k">if</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="n">value</span> <span class="o">-</span> <span class="n">stats</span><span class="p">[</span><span class="n">TAG_VALUE</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_value</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_value</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">:</span>
                     <span class="k">return</span> <span class="kc">False</span>
             <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
                 <span class="k">return</span> <span class="kc">False</span>
@@ -361,21 +380,21 @@
 
         <span class="n">time_curr</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
         <span class="n">stats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span>
-        <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;iterations&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">stats</span><span class="p">[</span><span class="n">TAG_ITERATIONS</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
         
-        <span class="n">time_since_update</span> <span class="o">=</span> <span class="n">time_curr</span> <span class="o">-</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;last_update_time&#39;</span><span class="p">]</span>
+        <span class="n">time_since_update</span> <span class="o">=</span> <span class="n">time_curr</span> <span class="o">-</span> <span class="n">stats</span><span class="p">[</span><span class="n">TAG_LAST_UPDATED_AT</span><span class="p">]</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="p">((</span><span class="n">time_since_update</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_interval</span><span class="p">)</span>
-                    <span class="ow">and</span> <span class="p">((</span><span class="n">value</span> <span class="o">-</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">])</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mf">0.1</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_range</span><span class="p">))):</span>
+                    <span class="ow">and</span> <span class="p">((</span><span class="n">value</span> <span class="o">-</span> <span class="n">stats</span><span class="p">[</span><span class="n">TAG_VALUE</span><span class="p">])</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mf">0.1</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_range</span><span class="p">))):</span>
                 <span class="k">return</span>
         <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
             <span class="k">pass</span>
 
-        <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;time_since_update&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_since_update</span>
-        <span class="n">time_</span> <span class="o">=</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;time_since_begin&#39;</span><span class="p">]</span>
-        <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;time_since_begin&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_curr</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="s1">&#39;begin_time&#39;</span><span class="p">]</span>
-        <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;deltatime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="s1">&#39;time_since_begin&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">time_</span>
+        <span class="n">stats</span><span class="p">[</span><span class="n">TAG_TIME_SINCE_UPDATE</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_since_update</span>
+        <span class="n">time_</span> <span class="o">=</span> <span class="n">stats</span><span class="p">[</span><span class="n">TAG_TIME_SINCE_BEGIN</span><span class="p">]</span>
+        <span class="n">stats</span><span class="p">[</span><span class="n">TAG_TIME_SINCE_BEGIN</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_curr</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="n">TAG_BEGIN_TIME</span><span class="p">]</span>
+        <span class="n">stats</span><span class="p">[</span><span class="n">TAG_DELTATIME</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="n">TAG_TIME_SINCE_BEGIN</span><span class="p">]</span> <span class="o">-</span> <span class="n">time_</span>
 
         <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_value</span> <span class="o">&lt;=</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_value</span><span class="p">:</span>
@@ -385,13 +404,13 @@
                     <span class="s2">&quot;&#39;value&#39; must be between </span><span class="si">{}</span><span class="s2"> and </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">min_value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_value</span><span class="p">))</span>
         
-        <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-        <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;max_value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_value</span>
-        <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;min_value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_value</span>
+        <span class="n">stats</span><span class="p">[</span><span class="n">TAG_VALUE</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="n">stats</span><span class="p">[</span><span class="n">TAG_MAX_VALUE</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_value</span>
+        <span class="n">stats</span><span class="p">[</span><span class="n">TAG_MIN_VALUE</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_value</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;percentage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="n">value</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_value</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_value</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_value</span><span class="p">)</span>
+            <span class="n">stats</span><span class="p">[</span><span class="n">TAG_PERCENTAGE</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="n">value</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_value</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_value</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_value</span><span class="p">)</span>
         <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ZeroDivisionError</span><span class="p">):</span>
-            <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;percentage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">stats</span><span class="p">[</span><span class="n">TAG_PERCENTAGE</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
         
         <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ordered_providers_tags</span><span class="p">:</span>
             <span class="n">provider</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded_providers</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span>
@@ -414,7 +433,7 @@
     <span class="k">def</span> <span class="nf">_update_progress_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Updates Progress Bar.&quot;&quot;&quot;</span>
         <span class="c1">#self._stats_at_last_update = self._stats.copy()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="s1">&#39;last_update_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="p">[</span><span class="n">TAG_LAST_UPDATED_AT</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
         <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">component</span><span class="p">,</span> <span class="n">BaseExtension</span><span class="p">):</span>

@@ -50,6 +50,7 @@
   <h1>Source code for progressindicator.extensions</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;This module contains the Built-in Extensions for ProgressIndicator class.&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">progressindicator.base</span> <span class="k">import</span> <span class="n">BaseExtension</span>
+<span class="kn">from</span> <span class="nn">progressindicator.tags</span> <span class="k">import</span> <span class="o">*</span>
 
 <div class="viewcode-block" id="Bar"><a class="viewcode-back" href="../../source/progressindicator.html#progressindicator.extensions.Bar">[docs]</a><span class="k">class</span> <span class="nc">Bar</span><span class="p">(</span><span class="n">BaseExtension</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Extension to display Progress bar in console.</span>
@@ -73,7 +74,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">begin_entity</span><span class="o">=</span><span class="s1">&#39;[&#39;</span><span class="p">,</span> <span class="n">filler_entity</span><span class="o">=</span><span class="s1">&#39;#&#39;</span><span class="p">,</span>
                  <span class="n">empty_entity</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">end_entity</span><span class="o">=</span><span class="s1">&#39;]&#39;</span><span class="p">):</span>
-        <span class="n">BaseExtension</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">requirements</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;percentage&#39;</span><span class="p">])</span>
+        <span class="n">BaseExtension</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">requirements</span> <span class="o">=</span> <span class="p">[</span><span class="n">TAG_PERCENTAGE</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">length</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">begin_entity</span> <span class="o">=</span> <span class="n">begin_entity</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">filler_entity</span> <span class="o">=</span> <span class="n">filler_entity</span>
@@ -132,8 +133,8 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">begin_entity</span><span class="o">=</span><span class="s1">&#39;[&#39;</span><span class="p">,</span> <span class="n">filler_entity</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span>
                  <span class="n">empty_entity</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">end_entity</span><span class="o">=</span><span class="s1">&#39;]&#39;</span><span class="p">,</span> <span class="n">velocity</span><span class="o">=</span><span class="mi">200</span><span class="p">):</span>
         <span class="n">BaseExtension</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                               <span class="n">requirements</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;time_since_begin&#39;</span><span class="p">,</span>
-                                               <span class="s1">&#39;deltatime&#39;</span><span class="p">],</span>
+                               <span class="n">requirements</span> <span class="o">=</span> <span class="p">[</span><span class="n">TAG_TIME_SINCE_BEGIN</span><span class="p">,</span>
+                                               <span class="n">TAG_DELTATIME</span><span class="p">],</span>
                                <span class="n">update_interval</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">length</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">filler</span> <span class="o">=</span> <span class="n">filler_entity</span>
@@ -232,7 +233,7 @@
     <span class="sd">&quot;&quot;&quot;This Extension provides total time since the task was started.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">BaseExtension</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">requirements</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;time_since_begin&#39;</span><span class="p">])</span>
+        <span class="n">BaseExtension</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">requirements</span> <span class="o">=</span> <span class="p">[</span><span class="n">TAG_TIME_SINCE_BEGIN</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">on_validated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
         <span class="n">time_</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -251,7 +252,7 @@
 <span class="sd">    completed.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">BaseExtension</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">requirements</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;eta&#39;</span><span class="p">])</span></div>
+        <span class="n">BaseExtension</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">requirements</span> <span class="o">=</span> <span class="p">[</span><span class="n">TAG_ETA</span><span class="p">])</span></div>
 
 
 <div class="viewcode-block" id="ETANew"><a class="viewcode-back" href="../../source/progressindicator.html#progressindicator.extensions.ETANew">[docs]</a><span class="k">class</span> <span class="nc">ETANew</span><span class="p">(</span><span class="n">Timer</span><span class="p">):</span>
@@ -259,14 +260,14 @@
 <span class="sd">    to be completed.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">BaseExtension</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">requirements</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;eta_new&#39;</span><span class="p">])</span></div>
+        <span class="n">BaseExtension</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">requirements</span> <span class="o">=</span> <span class="p">[</span><span class="n">TAG_ETA_NEW</span><span class="p">])</span></div>
 
 
 <div class="viewcode-block" id="Rate"><a class="viewcode-back" href="../../source/progressindicator.html#progressindicator.extensions.Rate">[docs]</a><span class="k">class</span> <span class="nc">Rate</span><span class="p">(</span><span class="n">BaseExtension</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This Extension displays the rate at which calls to `publish` are made.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">BaseExtension</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">requirements</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;rate&#39;</span><span class="p">])</span>
+        <span class="n">BaseExtension</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">requirements</span> <span class="o">=</span> <span class="p">[</span><span class="n">TAG_RATE</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">on_validated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
         <span class="n">rate</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -280,7 +281,7 @@
     <span class="sd">&quot;&quot;&quot;This Extension displays percentage of the task completed.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">BaseExtension</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">requirements</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;percentage&#39;</span><span class="p">])</span>
+        <span class="n">BaseExtension</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">requirements</span> <span class="o">=</span> <span class="p">[</span><span class="n">TAG_PERCENTAGE</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">on_validated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
         <span class="n">percentage</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>

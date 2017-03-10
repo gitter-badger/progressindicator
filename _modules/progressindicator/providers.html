@@ -49,6 +49,7 @@
             
   <h1>Source code for progressindicator.providers</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">progressindicator.base</span> <span class="k">import</span> <span class="n">BaseProvider</span>
+<span class="kn">from</span> <span class="nn">progressindicator.tags</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
 <div class="viewcode-block" id="ETAProvider"><a class="viewcode-back" href="../../source/progressindicator.html#progressindicator.providers.ETAProvider">[docs]</a><span class="k">class</span> <span class="nc">ETAProvider</span><span class="p">(</span><span class="n">BaseProvider</span><span class="p">):</span>
@@ -58,9 +59,9 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">BaseProvider</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                              <span class="n">requirements</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;time_since_begin&#39;</span><span class="p">,</span>
-                                            <span class="s1">&#39;percentage&#39;</span><span class="p">],</span>
-                              <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;eta&#39;</span><span class="p">)</span>
+                              <span class="n">tag</span><span class="o">=</span><span class="n">TAG_ETA</span><span class="p">,</span>
+                              <span class="n">requirements</span><span class="o">=</span><span class="p">[</span><span class="n">TAG_TIME_SINCE_BEGIN</span><span class="p">,</span>
+                                            <span class="n">TAG_PERCENTAGE</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">on_validated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
@@ -77,10 +78,10 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">BaseProvider</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                              <span class="n">requirements</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;iterations&#39;</span><span class="p">,</span>
-                                            <span class="s1">&#39;percentage&#39;</span><span class="p">,</span>
-                                            <span class="s1">&#39;rate&#39;</span><span class="p">],</span>
-                              <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;eta_new&#39;</span><span class="p">)</span>
+                              <span class="n">tag</span><span class="o">=</span><span class="n">TAG_ETA_NEW</span><span class="p">,</span>
+                              <span class="n">requirements</span><span class="o">=</span><span class="p">[</span><span class="n">TAG_ITERATIONS</span><span class="p">,</span>
+                                            <span class="n">TAG_PERCENTAGE</span><span class="p">,</span>
+                                            <span class="n">TAG_RATE</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">on_validated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
@@ -99,8 +100,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">BaseProvider</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                              <span class="n">requirements</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;iterations&#39;</span><span class="p">,],</span>
-                              <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;rate&#39;</span><span class="p">)</span>
+                              <span class="n">tag</span><span class="o">=</span><span class="n">TAG_RATE</span><span class="p">,</span>
+                              <span class="n">requirements</span><span class="o">=</span><span class="p">[</span><span class="n">TAG_ITERATIONS</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">time_prev</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
         <span class="c1">#self.value_start = 0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value_prev</span> <span class="o">=</span> <span class="mi">0</span>

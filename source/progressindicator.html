@@ -53,7 +53,7 @@
 </div>
 <div class="section" id="progressindicator-base-module">
 <h2>progressindicator.base module<a class="headerlink" href="#progressindicator-base-module" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-progressindicator.base"></span><p>This module contains the BaseExtension class which Base class for all extensions.</p>
+<span class="target" id="module-progressindicator.base"></span><p>This module contains the BaseExtension and BaseProvider class.</p>
 <dl class="class">
 <dt id="progressindicator.base.BaseExtension">
 <em class="property">class </em><code class="descclassname">progressindicator.base.</code><code class="descname">BaseExtension</code><span class="sig-paren">(</span><em>requirements=[]</em>, <em>update_interval=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/base.html#BaseExtension"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.base.BaseExtension" title="Permalink to this definition">¶</a></dt>
@@ -382,6 +382,36 @@ Default is 0.50s.</li>
 <dt id="progressindicator.core.ProgressIndicator.clear_on_task_completion">
 <code class="descname">clear_on_task_completion</code><a class="headerlink" href="#progressindicator.core.ProgressIndicator.clear_on_task_completion" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>bool</em> &#8211; Whether Progress Bar is cleared on calling <cite>end</cite>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="progressindicator.core.ProgressIndicator.min_value">
+<code class="descname">min_value</code><a class="headerlink" href="#progressindicator.core.ProgressIndicator.min_value" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int, float</em> &#8211; Minimum value of the progress.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="progressindicator.core.ProgressIndicator.max_value">
+<code class="descname">max_value</code><a class="headerlink" href="#progressindicator.core.ProgressIndicator.max_value" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int, float</em> &#8211; Maximum value of the progress</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="progressindicator.core.ProgressIndicator.max_update_interval">
+<code class="descname">max_update_interval</code><a class="headerlink" href="#progressindicator.core.ProgressIndicator.max_update_interval" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>float</em> &#8211; Maximum interval in seconds between succesive updates</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="progressindicator.core.ProgressIndicator.seperator">
+<code class="descname">seperator</code><a class="headerlink" href="#progressindicator.core.ProgressIndicator.seperator" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; String used to join output of components.(Default &#8216; &#8216;)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="progressindicator.core.ProgressIndicator.components">
+<code class="descname">components</code><a class="headerlink" href="#progressindicator.core.ProgressIndicator.components" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list</em> &#8211; List of components used to build the progress bar.</p>
 </dd></dl>
 
 <dl class="method">
