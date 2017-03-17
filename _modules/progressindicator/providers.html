@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>progressindicator.providers &#8212; progressindicator 0.1.0 documentation</title>
+    <title>progressindicator.providers &#8212; progressindicator 0.1.1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.1.0',
+        VERSION:     '0.1.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -37,7 +37,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">progressindicator 0.1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">progressindicator 0.1.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -71,14 +71,14 @@
             <span class="k">pass</span></div>
             
 
-<div class="viewcode-block" id="ETANewProvider"><a class="viewcode-back" href="../../source/progressindicator.html#progressindicator.providers.ETANewProvider">[docs]</a><span class="k">class</span> <span class="nc">ETANewProvider</span><span class="p">(</span><span class="n">BaseProvider</span><span class="p">):</span>
+<div class="viewcode-block" id="ETA1Provider"><a class="viewcode-back" href="../../source/progressindicator.html#progressindicator.providers.ETA1Provider">[docs]</a><span class="k">class</span> <span class="nc">ETA1Provider</span><span class="p">(</span><span class="n">BaseProvider</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Default Provider for an alternate estimate of the time remaining for the</span>
 <span class="sd">    completion of the task underway. The tag for this provider is `eta_new`.</span>
 <span class="sd">    This provider is used by the built-in `ETANew` extension.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">BaseProvider</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                              <span class="n">tag</span><span class="o">=</span><span class="n">TAG_ETA_NEW</span><span class="p">,</span>
+                              <span class="n">tag</span><span class="o">=</span><span class="n">TAG_ETA1</span><span class="p">,</span>
                               <span class="n">requirements</span><span class="o">=</span><span class="p">[</span><span class="n">TAG_ITERATIONS</span><span class="p">,</span>
                                             <span class="n">TAG_PERCENTAGE</span><span class="p">,</span>
                                             <span class="n">TAG_RATE</span><span class="p">])</span>
@@ -151,7 +151,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">progressindicator 0.1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">progressindicator 0.1.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

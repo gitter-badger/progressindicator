@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>progressindicator.core &#8212; progressindicator 0.1.0 documentation</title>
+    <title>progressindicator.core &#8212; progressindicator 0.1.1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.1.0',
+        VERSION:     '0.1.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -37,7 +37,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">progressindicator 0.1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">progressindicator 0.1.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -121,7 +121,7 @@
     <span class="k">def</span> <span class="nf">_register_default_providers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">register_provider</span><span class="p">(</span><span class="n">RateProvider</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">register_provider</span><span class="p">(</span><span class="n">ETAProvider</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">register_provider</span><span class="p">(</span><span class="n">ETANewProvider</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_provider</span><span class="p">(</span><span class="n">ETA1Provider</span><span class="p">())</span>
 
 <div class="viewcode-block" id="ProgressIndicator.begin"><a class="viewcode-back" href="../../source/progressindicator.html#progressindicator.core.ProgressIndicator.begin">[docs]</a>    <span class="k">def</span> <span class="nf">begin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Performs initial tasks prior to printing progress bar.</span>
@@ -485,8 +485,9 @@
 
 <div class="viewcode-block" id="AdvancedProgressBar"><a class="viewcode-back" href="../../source/progressindicator.html#progressindicator.core.AdvancedProgressBar">[docs]</a><span class="k">class</span> <span class="nc">AdvancedProgressBar</span><span class="p">(</span><span class="n">ProgressIndicator</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">progressindicator.extensions</span> <span class="k">import</span> <span class="n">Percentage</span><span class="p">,</span> <span class="n">Timer</span><span class="p">,</span> <span class="n">ETA</span><span class="p">,</span> <span class="n">ETANew</span><span class="p">,</span> <span class="n">Rate</span><span class="p">,</span> <span class="n">Bar</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">components</span> <span class="o">=</span> <span class="p">[</span><span class="n">Percentage</span><span class="p">(),</span> <span class="n">Bar</span><span class="p">(),</span> <span class="n">Rate</span><span class="p">(),</span> <span class="n">Timer</span><span class="p">(),</span> <span class="n">ETA</span><span class="p">(),</span> <span class="n">ETANew</span><span class="p">()])</span></div>
+        <span class="kn">from</span> <span class="nn">progressindicator.extensions</span> <span class="k">import</span> <span class="n">Percentage</span><span class="p">,</span> <span class="n">Timer</span><span class="p">,</span> <span class="n">ETA1</span><span class="p">,</span> <span class="n">Rate</span><span class="p">,</span> <span class="n">Bar</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">components</span> <span class="o">=</span> <span class="p">[</span><span class="n">Percentage</span><span class="p">(),</span> <span class="n">Bar</span><span class="p">(),</span> <span class="n">Rate</span><span class="p">(),</span> <span class="s2">&quot;Time:&quot;</span><span class="p">,</span>
+                                       <span class="n">Timer</span><span class="p">(),</span> <span class="s2">&quot;ETA:&quot;</span><span class="p">,</span> <span class="n">ETA1</span><span class="p">()])</span></div>
 
 <div class="viewcode-block" id="display_progress"><a class="viewcode-back" href="../../source/progressindicator.html#progressindicator.core.display_progress">[docs]</a><span class="k">def</span> <span class="nf">display_progress</span><span class="p">(</span><span class="n">bar</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">display_progress</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
@@ -553,7 +554,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">progressindicator 0.1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">progressindicator 0.1.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
