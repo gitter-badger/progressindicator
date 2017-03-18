@@ -74,7 +74,7 @@
 <span class="sd">    __init__ should be called like BaseExtension.__init__(self, requirements)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">requirements</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">update_interval</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">requirements</span><span class="p">,</span> <span class="n">update_interval</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_requirements</span> <span class="o">=</span> <span class="n">requirements</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_interval</span> <span class="o">=</span> <span class="n">update_interval</span>
@@ -101,7 +101,7 @@
 <span class="sd">        prev_params : array_like</span>
 <span class="sd">            Values of all keys specified in the requirements of the extension</span>
 <span class="sd">            when the extension was last updated.</span>
-<span class="sd">            </span>
+
 <span class="sd">        params : array_like</span>
 <span class="sd">            Values of all keys specified in the requirements of the extension.</span>
 
@@ -219,7 +219,7 @@
 
 <div class="viewcode-block" id="BaseProvider"><a class="viewcode-back" href="../../source/progressindicator.html#progressindicator.base.BaseProvider">[docs]</a><span class="k">class</span> <span class="nc">BaseProvider</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">metaclass</span> <span class="o">=</span> <span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">):</span>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">requirements</span> <span class="o">=</span> <span class="p">[]):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">requirements</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_requirements</span> <span class="o">=</span> <span class="n">requirements</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_tag</span> <span class="o">=</span> <span class="n">tag</span>

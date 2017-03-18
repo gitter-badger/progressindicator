@@ -77,10 +77,10 @@
 <span class="sd">    ----------</span>
 <span class="sd">    clear_on_task_completion : bool</span>
 <span class="sd">        Whether Progress Bar is cleared on calling `end`.</span>
-<span class="sd">        </span>
+
 <span class="sd">    min_value : int, float</span>
 <span class="sd">        Minimum value of the progress.</span>
-<span class="sd">        </span>
+
 <span class="sd">    max_value : int, float</span>
 <span class="sd">        Maximum value of the progress</span>
 
@@ -93,7 +93,7 @@
 <span class="sd">    components : list</span>
 <span class="sd">        List of components used to build the progress bar.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    
+
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">components</span><span class="p">,</span> <span class="n">min_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
                  <span class="n">stream</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span> <span class="n">max_update_interval</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
         <span class="kn">import</span> <span class="nn">collections</span>
@@ -289,7 +289,9 @@
 <span class="sd">        provider : BaseProvider</span>
 <span class="sd">            An instance of the Custom BaseProvider child class.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">provider</span><span class="p">,</span> <span class="n">BaseProvider</span><span class="p">)</span>
+        <span class="c1">#assert isinstance(provider, BaseProvider)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">provider</span><span class="p">,</span> <span class="n">BaseProvider</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;provider must be of type BaseProvider, not </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">provider</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
         <span class="n">tag</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">get_tag</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">tag</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_registered_providers</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Another provider exists for the tag </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">))</span>
@@ -480,7 +482,7 @@
 
 <div class="viewcode-block" id="SimpleProgressBar"><a class="viewcode-back" href="../../source/progressindicator.html#progressindicator.core.SimpleProgressBar">[docs]</a><span class="k">class</span> <span class="nc">SimpleProgressBar</span><span class="p">(</span><span class="n">ProgressIndicator</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">progressindicator.extensions</span> <span class="k">import</span> <span class="n">Percentage</span><span class="p">,</span> <span class="n">Timer</span><span class="p">,</span> <span class="n">ETANew</span><span class="p">,</span> <span class="n">Rate</span><span class="p">,</span> <span class="n">Bar</span>
+        <span class="kn">from</span> <span class="nn">progressindicator.extensions</span> <span class="k">import</span> <span class="n">Percentage</span><span class="p">,</span> <span class="n">Bar</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">components</span> <span class="o">=</span> <span class="p">[</span><span class="n">Percentage</span><span class="p">(),</span> <span class="n">Bar</span><span class="p">()])</span></div>
 
 <div class="viewcode-block" id="AdvancedProgressBar"><a class="viewcode-back" href="../../source/progressindicator.html#progressindicator.core.AdvancedProgressBar">[docs]</a><span class="k">class</span> <span class="nc">AdvancedProgressBar</span><span class="p">(</span><span class="n">ProgressIndicator</span><span class="p">):</span>
@@ -511,7 +513,6 @@
     <span class="n">n</span> <span class="o">=</span> <span class="mi">10000000</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
         <span class="n">bar</span><span class="o">.</span><span class="n">publish</span><span class="p">((</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="n">n</span><span class="p">)</span>
-        <span class="k">pass</span>
     <span class="n">bar</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
 
     <span class="n">pr</span><span class="o">.</span><span class="n">disable</span><span class="p">()</span>
