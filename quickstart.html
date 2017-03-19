@@ -218,7 +218,7 @@ the look of the Progress indicator according to your needs.</p>
 built-in tags? You can also create Custom Providers to calculate values
 and specify a new tag for them that can be used by other extensions.</p>
 <p>Creating a provider is similar to creating an extension. But note that,
-instead of <code class="docutils literal"><span class="pre">on_update</span></code>, here we can override <a class="reference internal" href="source/progressindicator.html#progressindicator.base.BaseProvider.on_publish" title="progressindicator.base.BaseProvider.on_publish"><code class="xref py py-meth docutils literal"><span class="pre">on_publish()</span></code></a>.
+instead of <code class="docutils literal"><span class="pre">on_update</span></code>, here we can override <code class="xref py py-meth docutils literal"><span class="pre">on_publish()</span></code>.
 Also the <code class="xref py py-meth docutils literal"><span class="pre">__init__()</span></code> method does not take <code class="docutils literal"><span class="pre">update_interval</span></code>
 as a parameter, Instead it takes a parameter <code class="docutils literal"><span class="pre">tag</span></code> which takes a string.
 Rest of api is same. The tag should not collide with any built-in tag.
