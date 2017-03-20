@@ -209,6 +209,26 @@ tag required by the extension is invalid.</p>
 <dt id="progressindicator.base.BaseProvider">
 <em class="property">class </em><code class="descclassname">progressindicator.base.</code><code class="descname">BaseProvider</code><span class="sig-paren">(</span><em>tag</em>, <em>requirements</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/base.html#BaseProvider"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.base.BaseProvider" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Base class for all providers.</p>
+<p>All providers must inherit from this class. This class provides various
+methods which can be overidden to achieve desired behaviour.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>tag</strong> (<em>str</em>) &#8211; A string which is not already a registered tag</li>
+<li><strong>requirements</strong> (<em>array_like</em>) &#8211; iterable of strings where each string should be a built-in tag or a tag
+provided by a registered custom provider.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>All providers need to explicitly call __init__ of the BaseProvider with
+appropriate requirements. If an provider inherits from another provider,
+__init__ should be called like BaseProvider.__init__(self, tag, requirements)</p>
 <dl class="method">
 <dt id="progressindicator.base.BaseProvider.get_requirements">
 <code class="descname">get_requirements</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/base.html#BaseProvider.get_requirements"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.base.BaseProvider.get_requirements" title="Permalink to this definition">¶</a></dt>
@@ -291,9 +311,9 @@ tag required by the extension is invalid.</p>
 <code class="descname">on_update</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/base.html#BaseProvider.on_update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.base.BaseProvider.on_update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to calculate the value for the provider at each
 publish.</p>
-<p>This method is called on every publish. It is recommended to override the
-higher level functions <cite>on_validated</cite> and <cite>on_invalidated</cite> instead of
-this method.</p>
+<p>This method is called on every publish. It is recommended to override
+the higher level functions <cite>on_validated</cite> and <cite>on_invalidated</cite> instead
+of this method.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -341,8 +361,8 @@ requirements are valid.</p>
 <code class="descname">on_invalidated</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/base.html#BaseProvider.on_invalidated"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.base.BaseProvider.on_invalidated" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to calculate the value for the provider at each
 publish.</p>
-<p>This method is only called during an update if value for atleast one key
-in requirements is invalid.</p>
+<p>This method is only called during an update if value for atleast one
+key in requirements is invalid.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -550,7 +570,7 @@ they are not needed as Providers which are not required are never executed.</p>
 
 <dl class="class">
 <dt id="progressindicator.extensions.BouncingBar">
-<em class="property">class </em><code class="descclassname">progressindicator.extensions.</code><code class="descname">BouncingBar</code><span class="sig-paren">(</span><em>length=60</em>, <em>begin_entity='['</em>, <em>filler_entity='*'</em>, <em>empty_entity=' '</em>, <em>end_entity=']'</em>, <em>velocity=200</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/extensions.html#BouncingBar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.extensions.BouncingBar" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">progressindicator.extensions.</code><code class="descname">BouncingBar</code><span class="sig-paren">(</span><em>length=60</em>, <em>begin_entity='['</em>, <em>filler_entity='*'</em>, <em>empty_entity=' '</em>, <em>end_entity=']'</em>, <em>velocity=100</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/progressindicator/extensions.html#BouncingBar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#progressindicator.extensions.BouncingBar" title="Permalink to this definition">¶</a></dt>
 <dd><p>This Extension displays a visual cue for a task with indeterminate
 progress.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -748,8 +768,8 @@ built-in <cite>Rate</cite> extension.</p>
 </dd></dl>
 
 <dl class="data">
-<dt id="progressindicator.tags.TAG_ETA_NEW">
-<code class="descclassname">progressindicator.tags.</code><code class="descname">TAG_ETA_NEW</code><a class="headerlink" href="#progressindicator.tags.TAG_ETA_NEW" title="Permalink to this definition">¶</a></dt>
+<dt id="progressindicator.tags.TAG_ETA1">
+<code class="descclassname">progressindicator.tags.</code><code class="descname">TAG_ETA1</code><a class="headerlink" href="#progressindicator.tags.TAG_ETA1" title="Permalink to this definition">¶</a></dt>
 <dd><p>Refers to an alternate implementation of expected time(s)
 the task would need to complete</p>
 </dd></dl>

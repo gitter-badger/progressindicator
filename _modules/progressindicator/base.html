@@ -52,7 +52,7 @@
 <span class="kn">import</span> <span class="nn">abc</span>
 
 
-<div class="viewcode-block" id="BaseExtension"><a class="viewcode-back" href="../../source/progressindicator.html#progressindicator.base.BaseExtension">[docs]</a><span class="k">class</span> <span class="nc">BaseExtension</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">metaclass</span> <span class="o">=</span> <span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseExtension"><a class="viewcode-back" href="../../source/progressindicator.html#progressindicator.base.BaseExtension">[docs]</a><span class="k">class</span> <span class="nc">BaseExtension</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Base class for all extensions.</span>
 
 <span class="sd">    All extensions must inherit from this class. This class provides various</span>
@@ -115,8 +115,8 @@
 <span class="sd">        ProgressManager instance is updated by default every second</span>
 <span class="sd">        automatically. Only return True when you want updates more frequently.</span>
 <span class="sd">        You should not return True very often from this method. This method is</span>
-<span class="sd">        called everytime publish is called which may lead to output being printed</span>
-<span class="sd">        console on every call to publish and I/O operations are slow.</span>
+<span class="sd">        called everytime publish is called which may lead to output being</span>
+<span class="sd">        printed console on every call to publish and I/O operations are slow.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="kc">False</span>
 
@@ -128,7 +128,7 @@
 <span class="sd">        params : array_like</span>
 <span class="sd">            Values of all keys specified in the requirements of the extension.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">(</span><span class="kc">None</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">params</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">params</span>
 
 <div class="viewcode-block" id="BaseExtension.set_value"><a class="viewcode-back" href="../../source/progressindicator.html#progressindicator.base.BaseExtension.set_value">[docs]</a>    <span class="k">def</span> <span class="nf">set_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;This method sets the content which is to be printed to console.</span>
@@ -217,7 +217,28 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div></div>
 
-<div class="viewcode-block" id="BaseProvider"><a class="viewcode-back" href="../../source/progressindicator.html#progressindicator.base.BaseProvider">[docs]</a><span class="k">class</span> <span class="nc">BaseProvider</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">metaclass</span> <span class="o">=</span> <span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">):</span>
+
+<div class="viewcode-block" id="BaseProvider"><a class="viewcode-back" href="../../source/progressindicator.html#progressindicator.base.BaseProvider">[docs]</a><span class="k">class</span> <span class="nc">BaseProvider</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Base class for all providers.</span>
+
+<span class="sd">    All providers must inherit from this class. This class provides various</span>
+<span class="sd">    methods which can be overidden to achieve desired behaviour.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    tag : str</span>
+<span class="sd">        A string which is not already a registered tag</span>
+
+<span class="sd">    requirements : array_like</span>
+<span class="sd">        iterable of strings where each string should be a built-in tag or a tag</span>
+<span class="sd">        provided by a registered custom provider.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    All providers need to explicitly call __init__ of the BaseProvider with</span>
+<span class="sd">    appropriate requirements. If an provider inherits from another provider,</span>
+<span class="sd">    __init__ should be called like BaseProvider.__init__(self, tag, requirements)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">requirements</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="kc">None</span>
@@ -280,9 +301,9 @@
         <span class="sd">&quot;&quot;&quot;Override this method to calculate the value for the provider at each</span>
 <span class="sd">        publish.</span>
 
-<span class="sd">        This method is called on every publish. It is recommended to override the</span>
-<span class="sd">        higher level functions `on_validated` and `on_invalidated` instead of</span>
-<span class="sd">        this method.</span>
+<span class="sd">        This method is called on every publish. It is recommended to override</span>
+<span class="sd">        the higher level functions `on_validated` and `on_invalidated` instead</span>
+<span class="sd">        of this method.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -307,7 +328,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">on_update</span><span class="p">(</span><span class="n">params</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">(</span><span class="kc">None</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">params</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">params</span>
 
 <div class="viewcode-block" id="BaseProvider.on_validated"><a class="viewcode-back" href="../../source/progressindicator.html#progressindicator.base.BaseProvider.on_validated">[docs]</a>    <span class="k">def</span> <span class="nf">on_validated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Override this method to calculate the value for the provider at each</span>
@@ -327,8 +348,8 @@
         <span class="sd">&quot;&quot;&quot;Override this method to calculate the value for the provider at each</span>
 <span class="sd">        publish.</span>
 
-<span class="sd">        This method is only called during an update if value for atleast one key</span>
-<span class="sd">        in requirements is invalid.</span>
+<span class="sd">        This method is only called during an update if value for atleast one</span>
+<span class="sd">        key in requirements is invalid.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -336,7 +357,6 @@
 <span class="sd">            Values of all keys specified in the requirements of the extension.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></div></div>
-
 </pre></div>
 
           </div>
